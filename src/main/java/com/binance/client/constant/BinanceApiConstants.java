@@ -15,7 +15,12 @@ public class BinanceApiConstants {
     /**
      * Streaming API base URL.
      */
-    public static final String WS_API_BASE_URL = "wss://fstream.binance.com/ws";
+    public static final String WS_API_BASE_URL_FUTURES_FOR_U = "wss://fstream.binance.com/ws";
+
+    /**
+     * Streaming API base URL.
+     */
+    public static final String WS_API_BASE_URL_FUTURES_FOR_C = "wss://dstream.binance.com/ws";
 
     /**
      * HTTP Header to be used for API-KEY authentication.
@@ -40,9 +45,8 @@ public class BinanceApiConstants {
     public static final long DEFAULT_RECEIVING_WINDOW = 60_000L;
 
     /**
-     * Default ToStringStyle used by toString methods. Override this to change the
-     * output format of the overridden toString methods. - Example
-     * ToStringStyle.JSON_STYLE
+     * Default ToStringStyle used by toString methods. Override this to change the output format of the overridden
+     * toString methods. - Example ToStringStyle.JSON_STYLE
      */
     public static ToStringStyle TO_STRING_BUILDER_STYLE = ToStringStyle.SHORT_PREFIX_STYLE;
 }

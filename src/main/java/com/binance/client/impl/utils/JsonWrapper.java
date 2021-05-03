@@ -5,21 +5,22 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.binance.client.exception.BinanceApiException;
+
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class JsonWrapper {
 
     private final JSONObject json;
 
+    public JsonWrapper(JSONObject json) {
+        this.json = json;
+    }
+
     public static JsonWrapper parseFromString(String text) {
         try {
             JSONObject jsonObject;
-            if(JSON.parse(text) instanceof JSONArray) {
+            if (JSON.parse(text) instanceof JSONArray) {
                 jsonObject = (JSONObject) JSON.parse("{data:" + text + "}");
             } else {
                 jsonObject = (JSONObject) JSON.parse(text);
@@ -35,10 +36,6 @@ public class JsonWrapper {
         } catch (Exception e) {
             throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR, "[Json] " + e.getMessage());
         }
-    }
-
-    public JsonWrapper(JSONObject json) {
-        this.json = json;
     }
 
     private void checkMandatoryField(String name) {
@@ -129,6 +126,7 @@ public class JsonWrapper {
                     "[Json] Get long error: " + name + " " + e.getMessage());
         }
     }
+
     public Double getDouble(String name) {
         checkMandatoryField(name);
         try {

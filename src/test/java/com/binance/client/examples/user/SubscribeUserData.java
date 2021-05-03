@@ -1,8 +1,9 @@
 package com.binance.client.examples.user;
 
+import com.binance.client.FuturesForUSubscriptionClient;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
-import com.binance.client.SubscriptionClient;
+import com.binance.client.base.SubscriptionClient;
 import com.binance.client.examples.constants.PrivateConfig;
 
 public class SubscribeUserData {
@@ -23,9 +24,9 @@ public class SubscribeUserData {
         // Close user data stream
         syncRequestClient.closeUserDataStream(listenKey);
 
-        SubscriptionClient client = SubscriptionClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY);
+        FuturesForUSubscriptionClient client = FuturesForUSubscriptionClient.create();
 
-   
+
         client.subscribeUserDataEvent(listenKey, ((event) -> {
             System.out.println(event);
         }), null);

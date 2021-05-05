@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.math.BigDecimal;
 
-public class Order {
+public class FuturesOrder {
 
     private String clientOrderId;
 
@@ -38,6 +38,8 @@ public class Order {
     private Long updateTime;
 
     private String workingType;
+
+    private String pair;
 
     public String getClientOrderId() {
         return clientOrderId;
@@ -167,6 +169,14 @@ public class Order {
         this.workingType = workingType;
     }
 
+    public String getPair() {
+        return pair;
+    }
+
+    public void setPair(String pair) {
+        this.pair = pair;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
@@ -174,6 +184,6 @@ public class Order {
                 .append("orderId", orderId).append("origQty", origQty).append("price", price)
                 .append("reduceOnly", reduceOnly).append("side", side).append("positionSide", positionSide).append("status", status)
                 .append("stopPrice", stopPrice).append("symbol", symbol).append("timeInForce", timeInForce)
-                .append("type", type).append("updateTime", updateTime).append("workingType", workingType).toString();
+                .append("type", type).append("updateTime", updateTime).append("workingType", workingType).append("pair", pair).toString();
     }
 }

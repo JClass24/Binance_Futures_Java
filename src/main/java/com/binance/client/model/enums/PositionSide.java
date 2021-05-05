@@ -10,7 +10,8 @@ public enum PositionSide {
 
     SHORT("SHORT"),
 
-    LONG("LONG"),;
+    LONG("LONG"),
+    ;
 
     private final String code;
 

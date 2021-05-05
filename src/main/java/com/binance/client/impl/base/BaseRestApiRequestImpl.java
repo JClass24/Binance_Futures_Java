@@ -41,7 +41,7 @@ public class BaseRestApiRequestImpl {
 
     protected Request createRequest(String url, String address, UrlParamsBuilder builder) {
         String requestUrl = url + address;
-        System.out.print(requestUrl);
+        System.out.println(requestUrl);
         if (builder != null) {
             if (builder.hasPostParam()) {
                 return new Request.Builder().url(requestUrl).post(builder.buildPostBody())
@@ -203,6 +203,14 @@ public class BaseRestApiRequestImpl {
                 symbol.setQuantityPrecision(item.getLong("quantityPrecision"));
                 symbol.setBaseAssetPrecision(item.getLong("baseAssetPrecision"));
                 symbol.setQuotePrecision(item.getLong("quotePrecision"));
+                symbol.setPair(item.getStringOrDefault("pair", null));
+                symbol.setContractStatus(item.getStringOrDefault("contractStatus", null));
+                symbol.setContractSize(item.getIntegerOrDefault("contractSize", null));
+                symbol.setContractType(item.getStringOrDefault("contractType", null));
+                symbol.setDeliveryDate(item.getLongOrDefault("deliveryDate", null));
+                symbol.setMarginAsset(item.getStringOrDefault("marginAsset", null));
+                symbol.setOnboardDate(item.getLongOrDefault("onboardDate", null));
+                symbol.setUnderlyingType(item.getStringOrDefault("underlyingType", null));
                 symbol.setOrderTypes(item.getJsonArray("orderTypes").convert2StringList());
                 symbol.setTimeInForce(item.getJsonArray("orderTypes").convert2StringList());
                 List<List<Map<String, String>>> valList = new LinkedList<>();
@@ -293,6 +301,7 @@ public class BaseRestApiRequestImpl {
         request.jsonParser = (jsonWrapper -> {
             List<Trade> result = new LinkedList<>();
             JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
+
             dataArray.forEach((item) -> {
                 Trade element = new Trade();
                 element.setId(item.getLong("id"));
@@ -578,7 +587,7 @@ public class BaseRestApiRequestImpl {
                     responseResult.setMsg(((JSONObject) obj).getString("msg"));
                     listResult.add(responseResult);
                 } else {
-                    Order o = new Order();
+                    FuturesOrder o = new FuturesOrder();
                     JSONObject jsonObj = (JSONObject) obj;
                     o.setClientOrderId(jsonObj.getString("clientOrderId"));
                     o.setCumQuote(jsonObj.getBigDecimal("cumQuote"));
@@ -604,10 +613,10 @@ public class BaseRestApiRequestImpl {
         return request;
     }
 
-    public RestApiRequest<Order> postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-                                           TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-                                           String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType, String path) {
-        RestApiRequest<Order> request = new RestApiRequest<>();
+    public RestApiRequest<FuturesOrder> postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
+                                                  TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+                                                  String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType, String path) {
+        RestApiRequest<FuturesOrder> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
                 .putToUrl("side", side)
@@ -625,7 +634,7 @@ public class BaseRestApiRequestImpl {
         request.request = createRequestByPostWithSignature(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
-            Order result = new Order();
+            FuturesOrder result = new FuturesOrder();
             result.setClientOrderId(jsonWrapper.getString("clientOrderId"));
             result.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
             result.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
@@ -739,8 +748,8 @@ public class BaseRestApiRequestImpl {
         return request;
     }
 
-    public RestApiRequest<Order> cancelOrder(String symbol, Long orderId, String origClientOrderId, String path) {
-        RestApiRequest<Order> request = new RestApiRequest<>();
+    public RestApiRequest<FuturesOrder> cancelOrder(String symbol, Long orderId, String origClientOrderId, String path) {
+        RestApiRequest<FuturesOrder> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
                 .putToUrl("orderId", orderId)
@@ -748,7 +757,7 @@ public class BaseRestApiRequestImpl {
         request.request = createRequestByDeleteWithSignature(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
-            Order result = new Order();
+            FuturesOrder result = new FuturesOrder();
             result.setClientOrderId(jsonWrapper.getString("clientOrderId"));
             result.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
             result.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
@@ -809,7 +818,7 @@ public class BaseRestApiRequestImpl {
                     responseResult.setMsg(((JSONObject) obj).getString("msg"));
                     listResult.add(responseResult);
                 } else {
-                    Order o = new Order();
+                    FuturesOrder o = new FuturesOrder();
                     JSONObject jsonObj = (JSONObject) obj;
                     o.setClientOrderId(jsonObj.getString("clientOrderId"));
                     o.setCumQuote(jsonObj.getBigDecimal("cumQuote"));
@@ -835,8 +844,8 @@ public class BaseRestApiRequestImpl {
         return request;
     }
 
-    public RestApiRequest<Order> getOrder(String symbol, Long orderId, String origClientOrderId, String path) {
-        RestApiRequest<Order> request = new RestApiRequest<>();
+    public RestApiRequest<FuturesOrder> getOrder(String symbol, Long orderId, String origClientOrderId, String path) {
+        RestApiRequest<FuturesOrder> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
                 .putToUrl("orderId", orderId)
@@ -844,7 +853,7 @@ public class BaseRestApiRequestImpl {
         request.request = createRequestByGetWithSignature(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
-            Order result = new Order();
+            FuturesOrder result = new FuturesOrder();
             result.setClientOrderId(jsonWrapper.getString("clientOrderId"));
             result.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
             result.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
@@ -866,17 +875,17 @@ public class BaseRestApiRequestImpl {
         return request;
     }
 
-    public RestApiRequest<List<Order>> getOpenOrders(String symbol, String path) {
-        RestApiRequest<List<Order>> request = new RestApiRequest<>();
+    public RestApiRequest<List<FuturesOrder>> getOpenOrders(String symbol, String path) {
+        RestApiRequest<List<FuturesOrder>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol);
         request.request = createRequestByGetWithSignature(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
-            List<Order> result = new LinkedList<>();
+            List<FuturesOrder> result = new LinkedList<>();
             JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
             dataArray.forEach((item) -> {
-                Order element = new Order();
+                FuturesOrder element = new FuturesOrder();
                 element.setClientOrderId(item.getString("clientOrderId"));
                 element.setCumQuote(item.getBigDecimal("cumQuote"));
                 element.setExecutedQty(item.getBigDecimal("executedQty"));
@@ -900,8 +909,8 @@ public class BaseRestApiRequestImpl {
         return request;
     }
 
-    public RestApiRequest<List<Order>> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit, String path) {
-        RestApiRequest<List<Order>> request = new RestApiRequest<>();
+    public RestApiRequest<List<FuturesOrder>> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit, String path) {
+        RestApiRequest<List<FuturesOrder>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
                 .putToUrl("orderId", orderId)
@@ -911,10 +920,10 @@ public class BaseRestApiRequestImpl {
         request.request = createRequestByGetWithSignature(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
-            List<Order> result = new LinkedList<>();
+            List<FuturesOrder> result = new LinkedList<>();
             JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
             dataArray.forEach((item) -> {
-                Order element = new Order();
+                FuturesOrder element = new FuturesOrder();
                 element.setClientOrderId(item.getString("clientOrderId"));
                 element.setCumQuote(item.getBigDecimal("cumQuote"));
                 element.setExecutedQty(item.getBigDecimal("executedQty"));
@@ -1090,7 +1099,7 @@ public class BaseRestApiRequestImpl {
                 element.setIsBuyer(item.getBoolean("buyer"));
                 element.setCommission(item.getBigDecimal("commission"));
                 element.setCommissionAsset(item.getString("commissionAsset"));
-                element.setCounterPartyId(item.getLongOrDefault("counterPartyId", 0));
+                element.setCounterPartyId(item.getLongOrDefault("counterPartyId", null));
                 element.setOrderId(item.getLong("orderId"));
                 element.setIsMaker(item.getBoolean("maker"));
                 element.setOrderId(item.getLong("orderId"));

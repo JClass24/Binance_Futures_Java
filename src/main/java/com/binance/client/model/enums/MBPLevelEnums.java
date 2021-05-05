@@ -6,7 +6,8 @@ public enum MBPLevelEnums {
     LEVEL5(5),
     LEVEL10(10),
     LEVEL20(20),
-    LEVEL150(150),;
+    LEVEL150(150),
+    ;
 
     private final int levels;
 

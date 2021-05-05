@@ -19,6 +19,8 @@ public class Trade {
 
     private Boolean isBuyerMaker;
 
+    private Boolean isBestMatch;
+
     public Long getId() {
         return id;
     }
@@ -67,10 +69,18 @@ public class Trade {
         this.isBuyerMaker = isBuyerMaker;
     }
 
+    public Boolean getIsBestMatch() {
+        return isBestMatch;
+    }
+
+    public void setIsBestMatch(Boolean isBestMatch) {
+        this.isBestMatch = isBestMatch;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("id", id)
                 .append("price", price).append("qty", qty).append("quoteQty", quoteQty).append("time", time)
-                .append("isBuyerMaker", isBuyerMaker).toString();
+                .append("isBuyerMaker", isBuyerMaker).append("isBestMatch", isBestMatch).toString();
     }
 }

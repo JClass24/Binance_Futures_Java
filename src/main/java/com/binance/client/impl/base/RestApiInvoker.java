@@ -6,12 +6,14 @@ import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 public abstract class RestApiInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(RestApiInvoker.class);
-    private static OkHttpClient client = new OkHttpClient().newBuilder().pingInterval(60, TimeUnit.SECONDS).build();
+    private static OkHttpClient client = new OkHttpClient().newBuilder().proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 1080))).pingInterval(60, TimeUnit.SECONDS).build();
 
     static void checkResponse(JsonWrapper json) {
         try {

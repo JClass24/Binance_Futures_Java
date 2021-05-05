@@ -1,8 +1,5 @@
 package com.binance.client.model.market;
 
-import com.binance.client.constant.BinanceApiConstants;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +9,22 @@ public class ExchangeInfoEntry {
     private String symbol;
 
     private String status;
+
+    private String pair;
+
+    private String contractType;
+
+    private Long deliveryDate;
+
+    private Long onboardDate;
+
+    private String contractStatus;
+
+    private Integer contractSize;
+
+    private String marginAsset;
+
+    private String underlyingType;
 
     private BigDecimal maintMarginPercent;
 
@@ -139,14 +152,94 @@ public class ExchangeInfoEntry {
         this.filters = filters;
     }
 
+    public String getPair() {
+        return pair;
+    }
+
+    public void setPair(String pair) {
+        this.pair = pair;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public Long getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Long deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public Long getOnboardDate() {
+        return onboardDate;
+    }
+
+    public void setOnboardDate(Long onboardDate) {
+        this.onboardDate = onboardDate;
+    }
+
+    public String getContractStatus() {
+        return contractStatus;
+    }
+
+    public void setContractStatus(String contractStatus) {
+        this.contractStatus = contractStatus;
+    }
+
+    public Integer getContractSize() {
+        return contractSize;
+    }
+
+    public void setContractSize(Integer contractSize) {
+        this.contractSize = contractSize;
+    }
+
+    public String getMarginAsset() {
+        return marginAsset;
+    }
+
+    public void setMarginAsset(String marginAsset) {
+        this.marginAsset = marginAsset;
+    }
+
+    public String getUnderlyingType() {
+        return underlyingType;
+    }
+
+    public void setUnderlyingType(String underlyingType) {
+        this.underlyingType = underlyingType;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
-                .append("status", status).append("maintMarginPercent", maintMarginPercent)
-                .append("requiredMarginPercent", requiredMarginPercent).append("baseAsset", baseAsset)
-                .append("quoteAsset", quoteAsset).append("pricePrecision", pricePrecision)
-                .append("quantityPrecision", quantityPrecision).append("baseAssetPrecision", baseAssetPrecision)
-                .append("quotePrecision", quotePrecision).append("orderTypes", orderTypes)
-                .append("timeInForce", timeInForce).append("filters", filters).toString();
+        return "ExchangeInfoEntry{" +
+                "symbol='" + symbol + '\'' +
+                ", status='" + status + '\'' +
+                ", pair='" + pair + '\'' +
+                ", contractType='" + contractType + '\'' +
+                ", deliveryDate=" + deliveryDate +
+                ", onboardDate=" + onboardDate +
+                ", contractStatus='" + contractStatus + '\'' +
+                ", contractSize=" + contractSize +
+                ", marginAsset='" + marginAsset + '\'' +
+                ", underlyingType='" + underlyingType + '\'' +
+                ", maintMarginPercent=" + maintMarginPercent +
+                ", requiredMarginPercent=" + requiredMarginPercent +
+                ", baseAsset='" + baseAsset + '\'' +
+                ", quoteAsset='" + quoteAsset + '\'' +
+                ", pricePrecision=" + pricePrecision +
+                ", quantityPrecision=" + quantityPrecision +
+                ", baseAssetPrecision=" + baseAssetPrecision +
+                ", quotePrecision=" + quotePrecision +
+                ", orderTypes=" + orderTypes +
+                ", timeInForce=" + timeInForce +
+                ", filters=" + filters +
+                '}';
     }
 }

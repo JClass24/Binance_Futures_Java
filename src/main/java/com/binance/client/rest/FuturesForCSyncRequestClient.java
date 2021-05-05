@@ -1,6 +1,6 @@
 package com.binance.client.rest;
 
-import com.binance.client.base.SyncRequestClient;
+import com.binance.client.base.FuturesSyncRequestClient;
 import com.binance.client.impl.base.BinanceApiInternalFactory;
 
 /**
@@ -9,7 +9,7 @@ import com.binance.client.impl.base.BinanceApiInternalFactory;
  * <p>
  * If the invoking failed or timeout, the {@link com.binance.client.exception.BinanceApiException} will be thrown.
  */
-public interface FuturesForCSyncRequestClient extends SyncRequestClient {
+public interface FuturesForCSyncRequestClient extends FuturesSyncRequestClient {
 
     /**
      * Create the synchronous client. All interfaces defined in synchronous client are implemented by synchronous mode.

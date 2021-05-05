@@ -1,10 +1,9 @@
 package com.binance.client.base;
 
-import com.alibaba.fastjson.JSONObject;
-import com.binance.client.model.ResponseResult;
-import com.binance.client.model.enums.*;
+import com.binance.client.model.enums.CandlestickInterval;
 import com.binance.client.model.market.*;
-import com.binance.client.model.trade.*;
+import com.binance.client.model.trade.FuturesOrder;
+import com.binance.client.model.trade.MyTrade;
 
 import java.util.List;
 
@@ -59,20 +58,6 @@ public interface SyncRequestClient {
     List<Candlestick> getCandlestick(String symbol, CandlestickInterval interval, Long startTime, Long endTime, Integer limit);
 
     /**
-     * Get mark price for a symbol.
-     *
-     * @return Mark price for a symbol.
-     */
-    List<MarkPrice> getMarkPrice(String symbol);
-
-    /**
-     * Get funding rate history.
-     *
-     * @return funding rate history.
-     */
-    List<FundingRate> getFundingRate(String symbol, Long startTime, Long endTime, Integer limit);
-
-    /**
      * Get 24 hour rolling window price change statistics.
      *
      * @return 24 hour rolling window price change statistics.
@@ -94,144 +79,32 @@ public interface SyncRequestClient {
     List<SymbolOrderBook> getSymbolOrderBookTicker(String symbol);
 
     /**
-     * Get all liquidation orders.
-     *
-     * @return All liquidation orders.
-     */
-    List<LiquidationOrder> getLiquidationOrders(String symbol, Long startTime, Long endTime, Integer limit);
-
-    /**
-     * Place new orders
-     *
-     * @param batchOrders
-     * @return
-     */
-    List<Object> postBatchOrders(String batchOrders);
-
-    /**
-     * Send in a new order.
-     *
-     * @return Order.
-     */
-    Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-                    TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-                    String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType);
-
-    /**
      * Cancel an active order.
      *
      * @return Order.
      */
-    Order cancelOrder(String symbol, Long orderId, String origClientOrderId);
-
-    /**
-     * Cancel all open orders.
-     *
-     * @return ResponseResult.
-     */
-    ResponseResult cancelAllOpenOrder(String symbol);
-
-    /**
-     * Batch cancel orders.
-     *
-     * @return Order.
-     */
-    List<Object> batchCancelOrders(String symbol, String orderIdList, String origClientOrderIdList);
-
-    /**
-     * Switch position side. (true == dual, false == both)
-     *
-     * @return ResponseResult.
-     */
-    ResponseResult changePositionSide(boolean dual);
-
-    /**
-     * Change margin type (ISOLATED, CROSSED)
-     *
-     * @param symbolName
-     * @param marginType
-     * @return
-     */
-    ResponseResult changeMarginType(String symbolName, String marginType);
-
-    /**
-     * add isolated position margin
-     *
-     * @param symbolName
-     * @param type
-     * @param amount
-     * @param positionSide SHORT, LONG, BOTH
-     * @return
-     */
-    JSONObject addIsolatedPositionMargin(String symbolName, int type, String amount, PositionSide positionSide);
-
-    /**
-     * get position margin history
-     *
-     * @param symbolName
-     * @param type
-     * @param startTime
-     * @param endTime
-     * @param limit
-     * @return
-     */
-    List<WalletDeltaLog> getPositionMarginHistory(String symbolName, int type, long startTime, long endTime, int limit);
-
-    /**
-     * Get if changed to HEDGE mode. (true == hedge mode, false == one-way mode)
-     *
-     * @return ResponseResult.
-     */
-    JSONObject getPositionSide();
+    FuturesOrder cancelOrder(String symbol, Long orderId, String origClientOrderId);
 
     /**
      * Check an order's status.
      *
      * @return Order status.
      */
-    Order getOrder(String symbol, Long orderId, String origClientOrderId);
+    FuturesOrder getOrder(String symbol, Long orderId, String origClientOrderId);
 
     /**
      * Get all open orders on a symbol. Careful when accessing this with no symbol.
      *
      * @return Open orders.
      */
-    List<Order> getOpenOrders(String symbol);
+    List<FuturesOrder> getOpenOrders(String symbol);
 
     /**
      * Get all account orders; active, canceled, or filled.
      *
      * @return All orders.
      */
-    List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
-
-    /**
-     * Get account balances.
-     *
-     * @return Balances.
-     */
-    List<AccountBalance> getBalance();
-
-    /**
-     * Get current account information.
-     *
-     * @return Current account information.
-     */
-    AccountInformation getAccountInformation();
-
-    /**
-     * Change initial leverage.
-     *
-     * @return Leverage.
-     */
-    Leverage changeInitialLeverage(String symbol, Integer leverage);
-
-    /**
-     * Get position.
-     *
-     * @return Position.
-     */
-    List<PositionRisk> getPositionRisk();
+    List<FuturesOrder> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
 
     /**
      * Get trades for a specific account and symbol.
@@ -239,13 +112,6 @@ public interface SyncRequestClient {
      * @return Trades.
      */
     List<MyTrade> getAccountTrades(String symbol, Long startTime, Long endTime, Long fromId, Integer limit);
-
-    /**
-     * Get income history.
-     *
-     * @return Income history.
-     */
-    List<Income> getIncomeHistory(String symbol, IncomeType incomeType, Long startTime, Long endTime, Integer limit);
 
     /**
      * Start user data stream.
@@ -267,40 +133,4 @@ public interface SyncRequestClient {
      * @return null.
      */
     String closeUserDataStream(String listenKey);
-
-    /**
-     * Open Interest Stat (MARKET DATA)
-     *
-     * @return Open Interest Stat.
-     */
-    List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
-
-    /**
-     * Top Trader Long/Short Ratio (Accounts) (MARKET DATA)
-     *
-     * @return Top Trader Long/Short Ratio (Accounts).
-     */
-    List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
-
-    /**
-     * Top Trader Long/Short Ratio (Positions) (MARKET DATA)
-     *
-     * @return Top Trader Long/Short Ratio (Positions).
-     */
-    List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
-
-    /**
-     * Long/Short Ratio (MARKET DATA)
-     *
-     * @return global Long/Short Ratio.
-     */
-    List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
-
-    /**
-     * Taker Long/Short Ratio (MARKET DATA)
-     *
-     * @return Taker Long/Short Ratio.
-     */
-    List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
-
 }

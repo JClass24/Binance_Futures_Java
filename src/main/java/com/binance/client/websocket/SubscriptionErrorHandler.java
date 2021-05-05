@@ -1,4 +1,4 @@
-package com.binance.client;
+package com.binance.client.websocket;
 
 import com.binance.client.exception.BinanceApiException;
 

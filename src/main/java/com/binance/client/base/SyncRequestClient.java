@@ -1,7 +1,6 @@
-package com.binance.client;
+package com.binance.client.base;
 
 import com.alibaba.fastjson.JSONObject;
-import com.binance.client.impl.base.BinanceApiInternalFactory;
 import com.binance.client.model.ResponseResult;
 import com.binance.client.model.enums.*;
 import com.binance.client.model.market.*;
@@ -16,39 +15,6 @@ import java.util.List;
  * If the invoking failed or timeout, the {@link com.binance.client.exception.BinanceApiException} will be thrown.
  */
 public interface SyncRequestClient {
-
-    /**
-     * Create the synchronous client. All interfaces defined in synchronous client are implemented by synchronous mode.
-     *
-     * @return The instance of synchronous client.
-     */
-    static SyncRequestClient create() {
-        return create("", "", new RequestOptions());
-    }
-
-    /**
-     * Create the synchronous client. All interfaces defined in synchronous client are implemented by synchronous mode.
-     *
-     * @param apiKey    The public key applied from binance.
-     * @param secretKey The private key applied from binance.
-     * @return The instance of synchronous client.
-     */
-    static SyncRequestClient create(String apiKey, String secretKey) {
-        return BinanceApiInternalFactory.getInstance().createSyncRequestClient(apiKey, secretKey, new RequestOptions());
-    }
-
-    /**
-     * Create the synchronous client. All interfaces defined in synchronous client are implemented by synchronous mode.
-     *
-     * @param apiKey    The public key applied from binance.
-     * @param secretKey The private key applied from binance.
-     * @param options   The request option.
-     * @return The instance of synchronous client.
-     */
-    static SyncRequestClient create(String apiKey, String secretKey, RequestOptions options) {
-        return BinanceApiInternalFactory.getInstance().createSyncRequestClient(apiKey, secretKey, options);
-    }
-
 
     /**
      * Fetch current exchange trading rules and symbol information.

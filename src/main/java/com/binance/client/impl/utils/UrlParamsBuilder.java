@@ -17,6 +17,7 @@ public class UrlParamsBuilder {
     private final ParamsMap paramsMap = new ParamsMap();
     private final ParamsMap postBodyMap = new ParamsMap();
     private String method = "GET";
+
     private UrlParamsBuilder() {
     }
 

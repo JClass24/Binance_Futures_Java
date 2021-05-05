@@ -1,15 +1,14 @@
 package com.binance.client.impl.base;
 
-import com.binance.client.SubscriptionErrorHandler;
-import com.binance.client.SubscriptionListener;
 import com.binance.client.impl.utils.Channels;
 import com.binance.client.impl.utils.JsonWrapper;
 import com.binance.client.impl.utils.JsonWrapperArray;
 import com.binance.client.model.enums.CandlestickInterval;
 import com.binance.client.model.event.*;
-import com.binance.client.model.market.CandlesCombine;
 import com.binance.client.model.market.OrderBookEntry;
 import com.binance.client.model.user.*;
+import com.binance.client.websocket.SubscriptionErrorHandler;
+import com.binance.client.websocket.SubscriptionListener;
 
 import java.util.LinkedList;
 import java.util.List;

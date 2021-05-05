@@ -1,4 +1,4 @@
-package com.binance.client;
+package com.binance.client.websocket;
 
 /**
  * You must implement the SubscriptionListener interface. <br> The server will push any update to the client. if client

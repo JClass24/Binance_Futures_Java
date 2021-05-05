@@ -1,22 +1,22 @@
-package com.binance.client.impl.futures;
+package com.binance.client.impl.websocket.futures;
 
-import com.binance.client.FuturesForCSubscriptionClient;
-import com.binance.client.SubscriptionErrorHandler;
-import com.binance.client.SubscriptionListener;
-import com.binance.client.SubscriptionOptions;
 import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.impl.base.WebSocketStreamClientImpl;
 import com.binance.client.model.event.LiquidationOrderEvent;
 import com.binance.client.model.event.MarkPriceEvent;
+import com.binance.client.websocket.FuturesForCSubscriptionClient;
+import com.binance.client.websocket.SubscriptionErrorHandler;
+import com.binance.client.websocket.SubscriptionListener;
+import com.binance.client.websocket.SubscriptionOptions;
 
 public class FuturesForCWebSocketStreamClientImpl extends WebSocketStreamClientImpl implements FuturesForCSubscriptionClient {
 
-    protected String getSubscriptionUrl() {
-        return BinanceApiConstants.WS_API_BASE_URL_FUTURES_FOR_C;
-    }
-
     public FuturesForCWebSocketStreamClientImpl(SubscriptionOptions options) {
         super(options);
+    }
+
+    protected String getSubscriptionUrl() {
+        return BinanceApiConstants.WS_API_BASE_URL_FUTURES_FOR_C;
     }
 
     @Override

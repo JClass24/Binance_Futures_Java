@@ -1,10 +1,23 @@
 package com.binance.client.impl.base;
 
-import com.binance.client.*;
-import com.binance.client.base.SubscriptionClient;
-import com.binance.client.impl.futures.FuturesForCWebSocketStreamClientImpl;
-import com.binance.client.impl.futures.FuturesForUWebSocketStreamClientImpl;
-import com.binance.client.impl.spot.SpotWebSocketStreamClientImpl;
+import com.binance.client.RequestOptions;
+import com.binance.client.constant.BinanceApiConstants;
+import com.binance.client.impl.rest.futures.FuturesForCRestApiRequestImpl;
+import com.binance.client.impl.rest.futures.FuturesForCSyncRequestImpl;
+import com.binance.client.impl.rest.futures.FuturesForURestApiRequestImpl;
+import com.binance.client.impl.rest.futures.FuturesForUSyncRequestImpl;
+import com.binance.client.impl.rest.spot.SpotRestApiRequestImpl;
+import com.binance.client.impl.rest.spot.SpotSyncRequestImpl;
+import com.binance.client.impl.websocket.futures.FuturesForCWebSocketStreamClientImpl;
+import com.binance.client.impl.websocket.futures.FuturesForUWebSocketStreamClientImpl;
+import com.binance.client.impl.websocket.spot.SpotWebSocketStreamClientImpl;
+import com.binance.client.rest.FuturesForCSyncRequestClient;
+import com.binance.client.rest.FuturesForUSyncRequestClient;
+import com.binance.client.rest.SpotSyncRequestClient;
+import com.binance.client.websocket.FuturesForCSubscriptionClient;
+import com.binance.client.websocket.FuturesForUSubscriptionClient;
+import com.binance.client.websocket.SpotSubscriptionClient;
+import com.binance.client.websocket.SubscriptionOptions;
 
 public final class BinanceApiInternalFactory {
 
@@ -17,9 +30,22 @@ public final class BinanceApiInternalFactory {
         return instance;
     }
 
-    public SyncRequestClient createSyncRequestClient(String apiKey, String secretKey, RequestOptions options) {
-        RestApiRequestImpl requestImpl = new RestApiRequestImpl(apiKey, secretKey, options);
-        return new SyncRequestImpl(requestImpl);
+    public FuturesForUSyncRequestClient createFuturesForUSyncRequestClient(String apiKey, String secretKey) {
+        RequestOptions options = new RequestOptions(BinanceApiConstants.API_BASE_URL_FUTURES_U);
+        FuturesForURestApiRequestImpl requestImpl = new FuturesForURestApiRequestImpl(apiKey, secretKey, options);
+        return new FuturesForUSyncRequestImpl(requestImpl);
+    }
+
+    public FuturesForCSyncRequestClient createFuturesForCSyncRequestClient(String apiKey, String secretKey) {
+        RequestOptions options = new RequestOptions(BinanceApiConstants.API_BASE_URL_FUTURES_C);
+        FuturesForCRestApiRequestImpl requestImpl = new FuturesForCRestApiRequestImpl(apiKey, secretKey, options);
+        return new FuturesForCSyncRequestImpl(requestImpl);
+    }
+
+    public SpotSyncRequestClient createSpotSyncRequestClient(String apiKey, String secretKey) {
+        RequestOptions options = new RequestOptions(BinanceApiConstants.API_BASE_URL_SPOT);
+        SpotRestApiRequestImpl requestImpl = new SpotRestApiRequestImpl(apiKey, secretKey, options);
+        return new SpotSyncRequestImpl(requestImpl);
     }
 
     public FuturesForCSubscriptionClient createFuturesForCSubClient(SubscriptionOptions options) {

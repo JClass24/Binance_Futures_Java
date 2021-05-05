@@ -1,7 +1,5 @@
 package com.binance.client.impl.base;
 
-import com.binance.client.SubscriptionOptions;
-import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.exception.BinanceApiException;
 import com.binance.client.impl.utils.JsonWrapper;
 import okhttp3.Request;
@@ -26,12 +24,12 @@ public class WebSocketConnection extends WebSocketListener {
     private volatile ConnectionState state = ConnectionState.IDLE;
     private int delayInSecond = 0;
 
-    WebSocketConnection(WebsocketRequest request,String subscriptionUrl,
+    WebSocketConnection(WebsocketRequest request, String subscriptionUrl,
                         WebSocketWatchDog watchDog) {
-        this(request, subscriptionUrl,watchDog, false);
+        this(request, subscriptionUrl, watchDog, false);
     }
 
-    WebSocketConnection(WebsocketRequest request,String subscriptionUrl,
+    WebSocketConnection(WebsocketRequest request, String subscriptionUrl,
                         WebSocketWatchDog watchDog, boolean autoClose) {
         this.connectionId = WebSocketConnection.connectionCounter++;
         this.request = request;

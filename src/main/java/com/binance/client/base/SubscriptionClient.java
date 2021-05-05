@@ -1,12 +1,10 @@
 package com.binance.client.base;
 
-import com.binance.client.SubscriptionErrorHandler;
-import com.binance.client.SubscriptionListener;
-import com.binance.client.SubscriptionOptions;
-import com.binance.client.impl.base.BinanceApiInternalFactory;
 import com.binance.client.model.enums.CandlestickInterval;
 import com.binance.client.model.event.*;
 import com.binance.client.model.user.UserDataUpdateEvent;
+import com.binance.client.websocket.SubscriptionErrorHandler;
+import com.binance.client.websocket.SubscriptionListener;
 
 import java.util.List;
 

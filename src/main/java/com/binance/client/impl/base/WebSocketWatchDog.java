@@ -1,7 +1,7 @@
 package com.binance.client.impl.base;
 
-import com.binance.client.SubscriptionOptions;
 import com.binance.client.impl.base.WebSocketConnection.ConnectionState;
+import com.binance.client.websocket.SubscriptionOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

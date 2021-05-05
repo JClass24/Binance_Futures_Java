@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-abstract class RestApiInvoker {
+public abstract class RestApiInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(RestApiInvoker.class);
-    private static OkHttpClient client = null;
+    private static OkHttpClient client = new OkHttpClient().newBuilder().pingInterval(60, TimeUnit.SECONDS).build();
 
     static void checkResponse(JsonWrapper json) {
         try {
@@ -44,7 +44,7 @@ abstract class RestApiInvoker {
         }
     }
 
-    static <T> T callSync(RestApiRequest<T> request) {
+    public static <T> T callSync(RestApiRequest<T> request) {
         try {
             String str;
             log.debug("Request URL " + request.request.url());
@@ -70,9 +70,6 @@ abstract class RestApiInvoker {
     }
 
     static WebSocket createWebSocket(Request request, WebSocketListener listener) {
-        if (client == null) {
-            client = new OkHttpClient().newBuilder().pingInterval(60, TimeUnit.SECONDS).build();
-        }
         return client.newWebSocket(request, listener);
     }
 

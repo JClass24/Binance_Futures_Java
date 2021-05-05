@@ -1,9 +1,7 @@
-package com.binance.client;
+package com.binance.client.websocket;
 
 import com.binance.client.base.SubscriptionClient;
 import com.binance.client.impl.base.BinanceApiInternalFactory;
-import com.binance.client.model.event.LiquidationOrderEvent;
-import com.binance.client.model.event.MarkPriceEvent;
 
 /***
  * 现货客户端

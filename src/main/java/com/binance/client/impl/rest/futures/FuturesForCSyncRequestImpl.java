@@ -1,22 +1,22 @@
-package com.binance.client.impl.base;
+package com.binance.client.impl.rest.futures;
 
 import com.alibaba.fastjson.JSONObject;
-import com.binance.client.SyncRequestClient;
+import com.binance.client.impl.base.RestApiInvoker;
 import com.binance.client.model.ResponseResult;
 import com.binance.client.model.enums.*;
 import com.binance.client.model.market.*;
 import com.binance.client.model.trade.*;
+import com.binance.client.rest.FuturesForCSyncRequestClient;
 
 import java.util.List;
 
-public class SyncRequestImpl implements SyncRequestClient {
+public class FuturesForCSyncRequestImpl implements FuturesForCSyncRequestClient {
 
-    private final RestApiRequestImpl requestImpl;
+    private final FuturesForCRestApiRequestImpl requestImpl;
 
-    SyncRequestImpl(RestApiRequestImpl requestImpl) {
+    public FuturesForCSyncRequestImpl(FuturesForCRestApiRequestImpl requestImpl) {
         this.requestImpl = requestImpl;
     }
-
 
     @Override
     public ExchangeInformation getExchangeInformation() {

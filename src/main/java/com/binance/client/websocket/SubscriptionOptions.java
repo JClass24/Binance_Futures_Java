@@ -6,16 +6,28 @@ package com.binance.client.websocket;
 public class SubscriptionOptions {
 
     private boolean isAutoReconnect = true;
-    private int receiveLimitMs = 60_000;
-    private int connectionDelayOnFailure = 15;
+    //-1代表不检测
+    private int receiveLimitMs = -1;
+    private int connectionDelayOnFailure = 3;
+    private String apiKey;
+    private String secretKey;
+    private String listenKey;
+
+    public SubscriptionOptions() {
+    }
 
     public SubscriptionOptions(SubscriptionOptions options) {
         this.isAutoReconnect = options.isAutoReconnect;
         this.receiveLimitMs = options.receiveLimitMs;
         this.connectionDelayOnFailure = options.connectionDelayOnFailure;
+        this.apiKey = options.apiKey;
+        this.secretKey = options.secretKey;
+        this.listenKey = options.listenKey;
     }
 
-    public SubscriptionOptions() {
+    public SubscriptionOptions(String apiKey, String secretKey) {
+        this.apiKey = apiKey;
+        this.secretKey = secretKey;
     }
 
     public boolean isAutoReconnect() {
@@ -63,5 +75,29 @@ public class SubscriptionOptions {
      */
     public void setConnectionDelayOnFailure(int connectionDelayOnFailure) {
         this.connectionDelayOnFailure = connectionDelayOnFailure;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    public String getListenKey() {
+        return listenKey;
+    }
+
+    public void setListenKey(String listenKey) {
+        this.listenKey = listenKey;
     }
 }

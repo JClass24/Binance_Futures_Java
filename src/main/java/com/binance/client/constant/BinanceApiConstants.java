@@ -10,7 +10,7 @@ public class BinanceApiConstants {
     /**
      * REST API base URL.
      */
-    public static final String API_BASE_URL_SPOT = "https://api3.binance.com";
+    public static final String API_BASE_URL_SPOT = "https://api.binance.com";
 
     /**
      * REST API base URL.

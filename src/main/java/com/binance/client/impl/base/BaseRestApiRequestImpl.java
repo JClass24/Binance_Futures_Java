@@ -64,43 +64,16 @@ public class BaseRestApiRequestImpl {
             throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR,
                     "[Invoking] Builder is null when create request with Signature");
         }
-        String requestUrl = url + address;
         new ApiSignature().createSignature(apiKey, secretKey, builder);
-        if (builder.hasPostParam()) {
-            requestUrl += builder.buildUrl();
-            return new Request.Builder().url(requestUrl).post(builder.buildPostBody())
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("X-MBX-APIKEY", apiKey)
-                    .addHeader("client_SDK_Version", "binance_futures-1.0.1-java")
-                    .build();
-        } else if (builder.checkMethod("PUT")) {
-            requestUrl += builder.buildUrl();
-            return new Request.Builder().url(requestUrl)
-                    .put(builder.buildPostBody())
-                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeader("X-MBX-APIKEY", apiKey)
-                    .addHeader("client_SDK_Version", "binance_futures-1.0.1-java")
-                    .build();
-        } else if (builder.checkMethod("DELETE")) {
-            requestUrl += builder.buildUrl();
-            return new Request.Builder().url(requestUrl)
-                    .delete()
-                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeader("client_SDK_Version", "binance_futures-1.0.1-java")
-                    .addHeader("X-MBX-APIKEY", apiKey)
-                    .build();
-        } else {
-            requestUrl += builder.buildUrl();
-            return new Request.Builder().url(requestUrl)
-                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
-                    .addHeader("client_SDK_Version", "binance_futures-1.0.1-java")
-                    .addHeader("X-MBX-APIKEY", apiKey)
-                    .build();
-        }
+        return createRequestWithApikey(url, address, builder);
     }
 
     protected Request createRequestByPostWithSignature(String address, UrlParamsBuilder builder) {
         return createRequestWithSignature(serverUrl, address, builder.setMethod("POST"));
+    }
+
+    protected Request createRequestByPost(String address, UrlParamsBuilder builder) {
+        return createRequestWithApikey(serverUrl, address, builder.setMethod("POST"));
     }
 
     protected Request createRequestByGetWithSignature(String address, UrlParamsBuilder builder) {
@@ -113,6 +86,14 @@ public class BaseRestApiRequestImpl {
 
     protected Request createRequestByDeleteWithSignature(String address, UrlParamsBuilder builder) {
         return createRequestWithSignature(serverUrl, address, builder.setMethod("DELETE"));
+    }
+
+    protected Request createRequestByPut(String address, UrlParamsBuilder builder) {
+        return createRequestWithApikey(serverUrl, address, builder.setMethod("PUT"));
+    }
+
+    protected Request createRequestByDelete(String address, UrlParamsBuilder builder) {
+        return createRequestWithApikey(serverUrl, address, builder.setMethod("DELETE"));
     }
 
     protected Request createRequestWithApikey(String url, String address, UrlParamsBuilder builder) {
@@ -194,7 +175,7 @@ public class BaseRestApiRequestImpl {
             symbolArray.forEach((item) -> {
                 ExchangeInfoEntry symbol = new ExchangeInfoEntry();
                 symbol.setSymbol(item.getString("symbol"));
-                symbol.setStatus(item.getString("status"));
+                symbol.setStatus(item.getStringOrDefault("status", null));
                 symbol.setMaintMarginPercent(item.getBigDecimal("maintMarginPercent"));
                 symbol.setRequiredMarginPercent(item.getBigDecimal("requiredMarginPercent"));
                 symbol.setBaseAsset(item.getString("baseAsset"));
@@ -1150,7 +1131,7 @@ public class BaseRestApiRequestImpl {
         RestApiRequest<String> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build();
 
-        request.request = createRequestByPostWithSignature(path, builder);
+        request.request = createRequestByPost(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
             String result = jsonWrapper.getString("listenKey");
@@ -1164,7 +1145,7 @@ public class BaseRestApiRequestImpl {
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("listenKey", listenKey);
 
-        request.request = createRequestByPutWithSignature(path, builder);
+        request.request = createRequestByPut(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
             String result = "Ok";
@@ -1178,7 +1159,7 @@ public class BaseRestApiRequestImpl {
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("listenKey", listenKey);
 
-        request.request = createRequestByDeleteWithSignature(path, builder);
+        request.request = createRequestByDelete(path, builder);
 
         request.jsonParser = (jsonWrapper -> {
             String result = "Ok";

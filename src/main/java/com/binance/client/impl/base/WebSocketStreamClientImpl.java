@@ -15,7 +15,7 @@ import java.util.Objects;
 public abstract class WebSocketStreamClientImpl implements SubscriptionClient {
 
     protected final WebsocketRequestImpl requestImpl;
-    private final SubscriptionOptions options;
+    protected final SubscriptionOptions options;
     private final List<WebSocketConnection> connections = new LinkedList<>();
     private WebSocketWatchDog watchDog;
 
@@ -27,7 +27,7 @@ public abstract class WebSocketStreamClientImpl implements SubscriptionClient {
 
     private <T> void createConnection(WebsocketRequest<T> request, boolean autoClose) {
         if (watchDog == null) {
-            watchDog = new WebSocketWatchDog(options);
+            watchDog = new WebSocketWatchDog(options, this);
         }
         WebSocketConnection connection = new WebSocketConnection(request, getSubscriptionUrl(), watchDog,
                 autoClose);
@@ -130,12 +130,14 @@ public abstract class WebSocketStreamClientImpl implements SubscriptionClient {
     }
 
     @Override
-    public void subscribeUserDataEvent(String listenKey,
-                                       SubscriptionListener<UserDataUpdateEvent> subscriptionListener,
+    public void subscribeUserDataEvent(SubscriptionListener<UserDataUpdateEvent> subscriptionListener,
                                        SubscriptionErrorHandler errorHandler) {
+        if (options.getListenKey() == null) {
+            options.setListenKey(getListenKey());
+        }
         createConnection(
-                requestImpl.subscribeUserDataEvent(listenKey, subscriptionListener, errorHandler));
+                requestImpl.subscribeUserDataEvent(options.getListenKey(), subscriptionListener, errorHandler));
     }
 
-
+    protected abstract String getListenKey();
 }

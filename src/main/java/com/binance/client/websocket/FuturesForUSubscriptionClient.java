@@ -26,6 +26,15 @@ public interface FuturesForUSubscriptionClient extends SubscriptionClient {
     /**
      * Create the subscription client to subscribe the update from server.
      *
+     * @return The instance of synchronous client.
+     */
+    static FuturesForUSubscriptionClient create(String apiKey, String secretKey) {
+        return create(new SubscriptionOptions(apiKey, secretKey));
+    }
+
+    /**
+     * Create the subscription client to subscribe the update from server.
+     *
      * @param subscriptionOptions The option of subscription connection, see {@link SubscriptionOptions}
      * @return The instance of synchronous client.
      */

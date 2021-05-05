@@ -47,4 +47,6 @@ public interface SpotSyncRequestClient extends SyncRequestClient {
      * @return Current account information.
      */
     SpotAccountInformation getAccountInformation();
+
+
 }

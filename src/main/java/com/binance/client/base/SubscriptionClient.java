@@ -142,13 +142,11 @@ public interface SubscriptionClient {
      * Subscribe user data event. If the user data is updated, server will send the data to client and onReceive in
      * callback will be called.
      *
-     * @param listenKey    The listenKey.
      * @param callback     The implementation is required. onReceive will be called if receive server's update.
      * @param errorHandler The error handler will be called if subscription failed or error happen between client and
      *                     Binance server.
      */
-    void subscribeUserDataEvent(String listenKey,
-                                SubscriptionListener<UserDataUpdateEvent> callback, SubscriptionErrorHandler errorHandler);
+    void subscribeUserDataEvent(SubscriptionListener<UserDataUpdateEvent> callback, SubscriptionErrorHandler errorHandler);
 
 
 }

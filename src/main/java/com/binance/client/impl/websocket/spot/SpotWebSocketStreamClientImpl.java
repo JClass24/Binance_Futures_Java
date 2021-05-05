@@ -2,6 +2,7 @@ package com.binance.client.impl.websocket.spot;
 
 import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.impl.base.WebSocketStreamClientImpl;
+import com.binance.client.rest.SpotSyncRequestClient;
 import com.binance.client.websocket.SpotSubscriptionClient;
 import com.binance.client.websocket.SubscriptionOptions;
 
@@ -15,4 +16,8 @@ public class SpotWebSocketStreamClientImpl extends WebSocketStreamClientImpl imp
         return BinanceApiConstants.WS_API_BASE_URL_SPOT;
     }
 
+    @Override
+    protected String getListenKey() {
+        return SpotSyncRequestClient.create(options.getApiKey(), options.getSecretKey()).startUserDataStream();
+    }
 }

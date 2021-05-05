@@ -48,6 +48,7 @@ public class WebSocketConnection extends WebSocketListener {
             log.info("[Sub][" + this.connectionId + "] Already connected");
             return;
         }
+        state = ConnectionState.CONNECTING;
         log.info("[Sub][" + this.connectionId + "] Connecting...");
         webSocket = RestApiInvoker.createWebSocket(okhttpRequest, this);
     }
@@ -184,6 +185,6 @@ public class WebSocketConnection extends WebSocketListener {
     }
 
     public enum ConnectionState {
-        IDLE, DELAY_CONNECT, CONNECTED, CLOSED_ON_ERROR
+        IDLE, DELAY_CONNECT, CONNECTED, CLOSED_ON_ERROR, CONNECTING
     }
 }

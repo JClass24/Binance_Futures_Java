@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 public abstract class RestApiInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(RestApiInvoker.class);
-    private static OkHttpClient client = new OkHttpClient().newBuilder().pingInterval(15, TimeUnit.SECONDS).build();
+    private static OkHttpClient client = new OkHttpClient().newBuilder().callTimeout(3, TimeUnit.SECONDS).connectTimeout(3, TimeUnit.SECONDS).pingInterval(15, TimeUnit.SECONDS).build();
 
     public static void initClient(String ip, Integer port, int interval) {
-        client = new OkHttpClient().newBuilder().proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ip, port))).pingInterval(interval, TimeUnit.SECONDS).build();
+        client = new OkHttpClient().newBuilder().proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ip, port))).callTimeout(3, TimeUnit.SECONDS).connectTimeout(3, TimeUnit.SECONDS).pingInterval(interval, TimeUnit.SECONDS).build();
     }
 
     static void checkResponse(JsonWrapper json) {

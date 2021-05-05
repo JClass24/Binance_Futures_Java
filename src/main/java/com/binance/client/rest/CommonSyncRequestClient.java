@@ -2,6 +2,7 @@ package com.binance.client.rest;
 
 import com.binance.client.impl.base.BinanceApiInternalFactory;
 import com.binance.client.model.enums.TransferType;
+import com.binance.client.model.trade.SpotOrder;
 
 /**
  * Synchronous request interface, invoking Binance RestAPI via synchronous method.<br> All methods in this interface
@@ -32,12 +33,39 @@ public interface CommonSyncRequestClient {
     }
 
     /**
+     * 转账
+     *
      * @param type
      * @param asset
      * @param amount
      * @return
      */
-    String transfer(TransferType type, String asset, String amount);
+    public String transfer(TransferType type, String asset, String amount);
+
+
+    /**
+     * 现货-限价买单
+     *
+     * @param symbol
+     * @param quantity
+     * @param price
+     * @param newClientOrderId
+     * @return
+     */
+    public SpotOrder placeSpotLimitBuyOrder(String symbol, String quantity, String price,
+                                            String newClientOrderId);
+
+    /**
+     * 现货-限价卖单
+     *
+     * @param symbol
+     * @param quantity
+     * @param price
+     * @param newClientOrderId
+     * @return
+     */
+    public SpotOrder placeSpotLimitSellOrder(String symbol, String quantity, String price,
+                                             String newClientOrderId);
 
 
 }

@@ -1,12 +1,14 @@
 package com.binance.client.impl.rest.common;
 
 import com.binance.client.RequestOptions;
-import com.binance.client.impl.base.BaseRestApiRequestImpl;
 import com.binance.client.impl.base.RestApiRequest;
+import com.binance.client.impl.base.RestApiRequestImpl;
 import com.binance.client.impl.utils.UrlParamsBuilder;
 import com.binance.client.model.enums.TransferType;
+import com.binance.client.model.trade.Order;
+import com.binance.client.model.trade.SpotOrder;
 
-public class CommonRestApiRequestImpl extends BaseRestApiRequestImpl {
+public class CommonRestApiRequestImpl extends RestApiRequestImpl {
 
     public CommonRestApiRequestImpl(String apiKey, String secretKey, RequestOptions options) {
         super(apiKey, secretKey, options);

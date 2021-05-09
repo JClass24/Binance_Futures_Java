@@ -19,6 +19,10 @@ public abstract class RestApiInvoker {
         client = new OkHttpClient().newBuilder().proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ip, port))).callTimeout(3, TimeUnit.SECONDS).connectTimeout(3, TimeUnit.SECONDS).pingInterval(interval, TimeUnit.SECONDS).build();
     }
 
+    public static OkHttpClient getClient() {
+        return client;
+    }
+
     static void checkResponse(JsonWrapper json) {
         try {
             if (json.containKey("success")) {

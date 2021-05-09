@@ -35,6 +35,8 @@ public class OrderUpdate {
 
     private BigDecimal cumulativeFilledQty;
 
+    private BigDecimal cumulativeFilledValue;
+
     private BigDecimal lastFilledPrice;
 
     private String commissionAsset;
@@ -54,6 +56,8 @@ public class OrderUpdate {
     private Boolean isReduceOnly;
 
     private String workingType;
+
+    private String depositType;
 
     public String getSymbol() {
         return symbol;
@@ -247,6 +251,38 @@ public class OrderUpdate {
         this.workingType = workingType;
     }
 
+    public BigDecimal getCumulativeFilledValue() {
+        return cumulativeFilledValue;
+    }
+
+    public void setCumulativeFilledValue(BigDecimal cumulativeFilledValue) {
+        this.cumulativeFilledValue = cumulativeFilledValue;
+    }
+
+    public Boolean getMarkerSide() {
+        return isMarkerSide;
+    }
+
+    public void setMarkerSide(Boolean markerSide) {
+        isMarkerSide = markerSide;
+    }
+
+    public Boolean getReduceOnly() {
+        return isReduceOnly;
+    }
+
+    public void setReduceOnly(Boolean reduceOnly) {
+        isReduceOnly = reduceOnly;
+    }
+
+    public String getDepositType() {
+        return depositType;
+    }
+
+    public void setDepositType(String depositType) {
+        this.depositType = depositType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
@@ -254,11 +290,11 @@ public class OrderUpdate {
                 .append("timeInForce", timeInForce).append("origQty", origQty).append("price", price)
                 .append("avgPrice", avgPrice).append("stopPrice", stopPrice).append("executionType", executionType)
                 .append("orderStatus", orderStatus).append("orderId", orderId).append("lastFilledQty", lastFilledQty)
-                .append("cumulativeFilledQty", cumulativeFilledQty).append("lastFilledPrice", lastFilledPrice)
+                .append("cumulativeFilledQty", cumulativeFilledQty).append("cumulativeFilledValue", cumulativeFilledValue).append("lastFilledPrice", lastFilledPrice)
                 .append("commissionAsset", commissionAsset).append("commissionAmount", commissionAmount)
                 .append("orderTradeTime", orderTradeTime).append("tradeID", tradeID)
                 .append("bidsNotional", bidsNotional).append("asksNotional", asksNotional)
                 .append("isMarkerSide", isMarkerSide).append("isReduceOnly", isReduceOnly)
-                .append("workingType", workingType).toString();
+                .append("workingType", workingType).append("depositType", depositType).toString();
     }
 }

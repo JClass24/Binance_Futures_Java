@@ -2,8 +2,6 @@ package com.binance.client.rest;
 
 import com.binance.client.impl.base.BinanceApiInternalFactory;
 import com.binance.client.model.enums.TransferType;
-import com.binance.client.model.trade.Order;
-import com.binance.client.model.trade.SpotOrder;
 
 /**
  * Synchronous request interface, invoking Binance RestAPI via synchronous method.<br> All methods in this interface

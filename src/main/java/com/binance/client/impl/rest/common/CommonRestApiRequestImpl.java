@@ -5,8 +5,6 @@ import com.binance.client.impl.base.RestApiRequest;
 import com.binance.client.impl.base.RestApiRequestImpl;
 import com.binance.client.impl.utils.UrlParamsBuilder;
 import com.binance.client.model.enums.TransferType;
-import com.binance.client.model.trade.Order;
-import com.binance.client.model.trade.SpotOrder;
 
 public class CommonRestApiRequestImpl extends RestApiRequestImpl {
 

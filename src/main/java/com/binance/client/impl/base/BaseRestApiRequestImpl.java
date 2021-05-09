@@ -3,25 +3,22 @@ package com.binance.client.impl.base;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.binance.client.RequestOptions;
-import com.binance.client.exception.BinanceApiException;
 import com.binance.client.impl.utils.JsonWrapperArray;
 import com.binance.client.impl.utils.UrlParamsBuilder;
 import com.binance.client.model.ResponseResult;
 import com.binance.client.model.enums.*;
 import com.binance.client.model.market.*;
 import com.binance.client.model.trade.*;
-import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-public class BaseRestApiRequestImpl extends RestApiRequestImpl{
+public class BaseRestApiRequestImpl extends RestApiRequestImpl {
 
     public BaseRestApiRequestImpl(String apiKey, String secretKey, RequestOptions options) {
-        super(apiKey,secretKey,options);
+        super(apiKey, secretKey, options);
     }
 
     public RestApiRequest<OrderBook> getOrderBook(String symbol, Integer limit, String path) {
@@ -651,21 +648,21 @@ public class BaseRestApiRequestImpl extends RestApiRequestImpl{
         request.jsonParser = (jsonWrapper -> {
             FuturesOrder result = new FuturesOrder();
             result.setClientOrderId(jsonWrapper.getString("clientOrderId"));
-            result.setCumQuote(jsonWrapper.getBigDecimal("cumQuote"));
-            result.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
+            result.setCumQuote(jsonWrapper.getBigDecimalOrDefault("cumQuote", jsonWrapper.getBigDecimalOrDefault("cummulativeQuoteQty", null)));
+            result.setExecutedQty(jsonWrapper.getBigDecimalOrDefault("executedQty", null));
             result.setOrderId(jsonWrapper.getLong("orderId"));
             result.setOrigQty(jsonWrapper.getBigDecimal("origQty"));
             result.setPrice(jsonWrapper.getBigDecimal("price"));
-            result.setReduceOnly(jsonWrapper.getBoolean("reduceOnly"));
+            result.setReduceOnly(jsonWrapper.getBooleanOrDefault("reduceOnly", null));
             result.setSide(jsonWrapper.getString("side"));
-            result.setPositionSide(jsonWrapper.getString("positionSide"));
+            result.setPositionSide(jsonWrapper.getStringOrDefault("positionSide", null));
             result.setStatus(jsonWrapper.getString("status"));
             result.setStopPrice(jsonWrapper.getBigDecimal("stopPrice"));
             result.setSymbol(jsonWrapper.getString("symbol"));
             result.setTimeInForce(jsonWrapper.getString("timeInForce"));
             result.setType(jsonWrapper.getString("type"));
             result.setUpdateTime(jsonWrapper.getLong("updateTime"));
-            result.setWorkingType(jsonWrapper.getString("workingType"));
+            result.setWorkingType(jsonWrapper.getStringOrDefault("workingType", null));
             return result;
         });
         return request;

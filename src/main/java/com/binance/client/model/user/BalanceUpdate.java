@@ -10,6 +10,8 @@ public class BalanceUpdate {
     private String asset;
 
     private BigDecimal walletBalance;
+    private BigDecimal availBalance;
+    private BigDecimal blockBalance;
 
     public String getAsset() {
         return asset;
@@ -27,9 +29,29 @@ public class BalanceUpdate {
         this.walletBalance = walletBalance;
     }
 
+    public BigDecimal getAvailBalance() {
+        return availBalance;
+    }
+
+    public void setAvailBalance(BigDecimal availBalance) {
+        this.availBalance = availBalance;
+    }
+
+    public BigDecimal getBlockBalance() {
+        return blockBalance;
+    }
+
+    public void setBlockBalance(BigDecimal blockBalance) {
+        this.blockBalance = blockBalance;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("asset", asset)
-                .append("walletBalance", walletBalance).toString();
+        return "BalanceUpdate{" +
+                "asset='" + asset + '\'' +
+                ", walletBalance=" + walletBalance +
+                ", availBalance=" + availBalance +
+                ", blockBalance=" + blockBalance +
+                '}';
     }
 }

@@ -2,8 +2,6 @@ package com.binance.client.impl.rest.common;
 
 import com.binance.client.impl.base.RestApiInvoker;
 import com.binance.client.model.enums.TransferType;
-import com.binance.client.model.trade.Order;
-import com.binance.client.model.trade.SpotOrder;
 import com.binance.client.rest.CommonSyncRequestClient;
 
 public class CommonSyncRequestImpl implements CommonSyncRequestClient {

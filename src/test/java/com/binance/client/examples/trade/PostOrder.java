@@ -23,6 +23,6 @@ public class PostOrder {
 //        System.out.println(syncRequestClient.postOrder("BTCUSDT", OrderSide.BUY, PositionSide.BOTH, OrderType.LIMIT, TimeInForce.GTC,
 //                "0.001", "48065.35", null, null, null, null, NewOrderRespType.RESULT));
 
-        System.out.println(syncRequestClient.postOrder("BTCUSDT", OrderSide.BUY, OrderType.LIMIT, TimeInForce.GTC, "0.001", null, "50000.35", "111", null, null, null));
+        System.out.println(syncRequestClient.postOrder("LTCUSDT", OrderSide.BUY, OrderType.LIMIT, TimeInForce.GTC, "0.1", null, "365", "11111", null, null, null));
     }
 }

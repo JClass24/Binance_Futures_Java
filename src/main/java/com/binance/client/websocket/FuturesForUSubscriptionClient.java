@@ -5,6 +5,8 @@ import com.binance.client.impl.base.BinanceApiInternalFactory;
 import com.binance.client.model.event.LiquidationOrderEvent;
 import com.binance.client.model.event.MarkPriceEvent;
 
+import java.util.List;
+
 /***
  * U本位客户端
  * The subscription client interface, it is used for subscribing any market data
@@ -46,24 +48,24 @@ public interface FuturesForUSubscriptionClient extends SubscriptionClient {
      * 最新标记价格 <symbol>@markPrice 或 <symbol>@markPrice@1s Subscribe mark price event. If the mark price is updated,
      * server will send the data to client and onReceive in callback will be called.
      *
-     * @param symbol       The symbol, like "btcusdt".
+     * @param symbols       The symbols, like "btcusdt".
      * @param callback     The implementation is required. onReceive will be called if receive server's update.
      * @param errorHandler The error handler will be called if subscription failed or error happen between client and
      *                     Binance server.
      */
-    void subscribeMarkPriceEvent(String symbol,
+    void subscribeMarkPriceEvent(List<String> symbols,
                                  SubscriptionListener<MarkPriceEvent> callback, SubscriptionErrorHandler errorHandler);
 
     /**
      * 强平订单 Subscribe individual symbol book ticker event. If the symbol book ticker is updated, server will send the
      * data to client and onReceive in callback will be called.
      *
-     * @param symbol       The symbol, like "btcusdt".
+     * @param symbols       The symbols, like "btcusdt".
      * @param callback     The implementation is required. onReceive will be called if receive server's update.
      * @param errorHandler The error handler will be called if subscription failed or error happen between client and
      *                     Binance server.
      */
-    void subscribeSymbolLiquidationOrderEvent(String symbol,
+    void subscribeSymbolLiquidationOrderEvent(List<String> symbols,
                                               SubscriptionListener<LiquidationOrderEvent> callback, SubscriptionErrorHandler errorHandler);
 
     /**

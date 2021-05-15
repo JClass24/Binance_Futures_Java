@@ -35,6 +35,14 @@ class InputChecker {
         return checkerInst;
     }
 
+    <T> InputChecker shouldNotEmpty(T value, String name) {
+        if (value == null || ((List) value).size() == 0) {
+            throw new BinanceApiException(BinanceApiException.INPUT_ERROR,
+                    "[Input] " + name + " should not be empty");
+        }
+        return checkerInst;
+    }
+
     <T> InputChecker shouldNull(T value, String name) {
         if (value != null) {
             throw new BinanceApiException(BinanceApiException.INPUT_ERROR,

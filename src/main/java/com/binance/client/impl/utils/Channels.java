@@ -2,47 +2,50 @@ package com.binance.client.impl.utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.binance.client.model.enums.CandlestickInterval;
+import com.binance.client.model.market.BookDepth;
+import com.binance.client.model.market.Candle;
+
+import java.util.List;
 
 public abstract class Channels {
 
     public static final String OP_SUB = "sub";
     public static final String OP_REQ = "req";
 
-    public static String aggregateTradeChannel(String symbol) {
+    public static String aggregateTradeChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@aggTrade");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@aggTrade"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
         return json.toJSONString();
     }
 
-    public static String markPriceChannel(String symbol) {
+    public static String markPriceChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@markPrice@1s");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@markPrice@1s"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
         return json.toJSONString();
     }
 
-    public static String candlestickChannel(String symbol, CandlestickInterval interval) {
+    public static String candlestickChannel(List<Candle> candles) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@kline_" + interval);
+        candles.forEach(candle -> params.add(candle.getSymbol().toLowerCase() + "@kline_" + candle.getInterval()));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
         return json.toJSONString();
     }
 
-    public static String miniTickerChannel(String symbol) {
+    public static String miniTickerChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@miniTicker");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@miniTicker"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
@@ -59,10 +62,10 @@ public abstract class Channels {
         return json.toJSONString();
     }
 
-    public static String tickerChannel(String symbol) {
+    public static String tickerChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@ticker");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@ticker"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
@@ -79,10 +82,10 @@ public abstract class Channels {
         return json.toJSONString();
     }
 
-    public static String bookTickerChannel(String symbol) {
+    public static String bookTickerChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@bookTicker");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@bookTicker"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
@@ -99,10 +102,10 @@ public abstract class Channels {
         return json.toJSONString();
     }
 
-    public static String liquidationOrderChannel(String symbol) {
+    public static String liquidationOrderChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@forceOrder");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@forceOrder"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
@@ -119,20 +122,20 @@ public abstract class Channels {
         return json.toJSONString();
     }
 
-    public static String bookDepthChannel(String symbol, Integer limit) {
+    public static String bookDepthChannel(List<BookDepth> bookDepths) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@depth" + limit);
+        bookDepths.forEach(bookDepth -> params.add(bookDepth.getSymbol().toLowerCase() + "@depth" + bookDepth.getLimit()));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");
         return json.toJSONString();
     }
 
-    public static String diffDepthChannel(String symbol) {
+    public static String diffDepthChannel(List<String> symbols) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@depth");
+        symbols.forEach(symbol -> params.add(symbol.toLowerCase() + "@depth"));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");

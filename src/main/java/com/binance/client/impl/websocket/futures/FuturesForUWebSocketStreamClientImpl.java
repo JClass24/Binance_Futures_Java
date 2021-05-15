@@ -10,6 +10,8 @@ import com.binance.client.websocket.SubscriptionErrorHandler;
 import com.binance.client.websocket.SubscriptionListener;
 import com.binance.client.websocket.SubscriptionOptions;
 
+import java.util.List;
+
 public class FuturesForUWebSocketStreamClientImpl extends WebSocketStreamClientImpl implements FuturesForUSubscriptionClient {
 
     public FuturesForUWebSocketStreamClientImpl(SubscriptionOptions options) {
@@ -26,19 +28,19 @@ public class FuturesForUWebSocketStreamClientImpl extends WebSocketStreamClientI
     }
 
     @Override
-    public void subscribeMarkPriceEvent(String symbol,
+    public void subscribeMarkPriceEvent(List<String> symbols,
                                         SubscriptionListener<MarkPriceEvent> subscriptionListener,
                                         SubscriptionErrorHandler errorHandler) {
         createConnection(
-                requestImpl.subscribeMarkPriceEvent(symbol, subscriptionListener, errorHandler));
+                requestImpl.subscribeMarkPriceEvent(symbols, subscriptionListener, errorHandler));
     }
 
     @Override
-    public void subscribeSymbolLiquidationOrderEvent(String symbol,
+    public void subscribeSymbolLiquidationOrderEvent(List<String> symbols,
                                                      SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
                                                      SubscriptionErrorHandler errorHandler) {
         createConnection(
-                requestImpl.subscribeSymbolLiquidationOrderEvent(symbol, subscriptionListener, errorHandler));
+                requestImpl.subscribeSymbolLiquidationOrderEvent(symbols, subscriptionListener, errorHandler));
     }
 
     @Override

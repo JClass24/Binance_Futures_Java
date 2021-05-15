@@ -1,94 +1,20 @@
 package com.binance.client.examples.websocket;
 
+import com.binance.client.impl.base.RestApiInvoker;
+import com.binance.client.model.market.Candle;
 import com.binance.client.model.enums.CandlestickInterval;
 import com.binance.client.websocket.FuturesForUSubscriptionClient;
+
+import java.util.Arrays;
 
 public class SubscribeCandlestick {
 
     public static void main(String[] args) {
-
+        RestApiInvoker.initClient("127.0.0.1", 1080, 15);
         FuturesForUSubscriptionClient client = FuturesForUSubscriptionClient.create();
-        client.subscribeCandlestickEvent("btcusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("eosusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("xrpusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("dotusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("ethusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("bnbusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("dogeusdt", CandlestickInterval.ONE_MINUTE, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("btcusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("eosusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("xrpusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("dotusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("ethusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("bnbusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("dogeusdt", CandlestickInterval.FIVE_MINUTES, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("btcusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("eosusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("xrpusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("dotusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("ethusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("bnbusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
-            System.out.println(System.currentTimeMillis() + ":" + event);
-            //client.unsubscribeAll();
-        }), null);
-        client.subscribeCandlestickEvent("dogeusdt", CandlestickInterval.HALF_HOURLY, ((event) -> {
+        Candle candle1 = new Candle("btcusdt", CandlestickInterval.ONE_MINUTE);
+        Candle candle2 = new Candle("btcusdt", CandlestickInterval.FIVE_MINUTES);
+        client.subscribeCandlestickEvent(Arrays.asList(candle1, candle2), ((event) -> {
             System.out.println(System.currentTimeMillis() + ":" + event);
             //client.unsubscribeAll();
         }), null);

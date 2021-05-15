@@ -9,6 +9,6 @@ public class GetOrder {
         RestApiInvoker.initClient("127.0.0.1", 1080, 15);
         SpotSyncRequestClient syncRequestClient = SpotSyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY);
 
-        System.out.println(syncRequestClient.getOrder("BTCUSDT", 5834504545L, null));
+        System.out.println(syncRequestClient.getOrder("SHIBUSDT", 1087513L, null));
     }
 }

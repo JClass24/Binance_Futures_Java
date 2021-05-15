@@ -10,6 +10,7 @@ import com.binance.client.model.user.*;
 import com.binance.client.websocket.SubscriptionErrorHandler;
 import com.binance.client.websocket.SubscriptionListener;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -463,15 +464,15 @@ public class WebsocketRequestImpl {
                 dataArray.forEach(item -> {
                     BalanceUpdate balance = new BalanceUpdate();
                     balance.setAsset(item.getString("a"));
-                    balance.setWalletBalance(item.getBigDecimalOrDefault("wb", null));
-                    balance.setAvailBalance(item.getBigDecimalOrDefault("f", null));
-                    balance.setBlockBalance(item.getBigDecimalOrDefault("l", null));
+                    balance.setWalletBalance(item.getBigDecimalOrDefault("wb", new BigDecimal(0)));
+                    balance.setAvailBalance(item.getBigDecimalOrDefault("f", new BigDecimal(0)));
+                    balance.setBlockBalance(item.getBigDecimalOrDefault("l", new BigDecimal(0)));
                     balanceList.add(balance);
                 });
                 accountUpdate.setBalances(balanceList);
                 if (jsonWrapper.getString("e").equals("ACCOUNT_UPDATE")) {
                     List<PositionUpdate> positionList = new LinkedList<>();
-                    JsonWrapperArray datalist = jsonWrapper.getJsonObject("a").getJsonArray("B");
+                    JsonWrapperArray datalist = jsonWrapper.getJsonObject("a").getJsonArray("P");
                     datalist.forEach(item -> {
                         PositionUpdate position = new PositionUpdate();
                         position.setSymbol(item.getString("s"));
@@ -497,21 +498,21 @@ public class WebsocketRequestImpl {
                 orderUpdate.setTimeInForce(jsondata.getString("f"));
                 orderUpdate.setOrigQty(jsondata.getBigDecimal("q"));
                 orderUpdate.setPrice(jsondata.getBigDecimal("p"));
-                orderUpdate.setAvgPrice(jsondata.getBigDecimalOrDefault("ap", null));
-                orderUpdate.setStopPrice(jsondata.getBigDecimalOrDefault("sp", null));
+                orderUpdate.setAvgPrice(jsondata.getBigDecimalOrDefault("ap", new BigDecimal(0)));
+                orderUpdate.setStopPrice(jsondata.getBigDecimalOrDefault("sp", new BigDecimal(0)));
                 orderUpdate.setExecutionType(jsondata.getString("x"));
                 orderUpdate.setOrderStatus(jsondata.getString("X"));
                 orderUpdate.setOrderId(jsondata.getLong("i"));
                 orderUpdate.setLastFilledQty(jsondata.getBigDecimal("l"));
                 orderUpdate.setCumulativeFilledQty(jsondata.getBigDecimal("z"));
-                orderUpdate.setCumulativeFilledValue(jsondata.getBigDecimalOrDefault("Z", null));
+                orderUpdate.setCumulativeFilledValue(jsondata.getBigDecimalOrDefault("Z", new BigDecimal(0)));
                 orderUpdate.setLastFilledPrice(jsondata.getBigDecimal("L"));
-                orderUpdate.setCommissionAsset(jsondata.getString("N"));
-                orderUpdate.setCommissionAmount(jsondata.getBigDecimal("n"));
+                orderUpdate.setCommissionAsset(jsondata.getStringOrDefault("N", null));
+                orderUpdate.setCommissionAmount(jsondata.getBigDecimalOrDefault("n", new BigDecimal(0)));
                 orderUpdate.setOrderTradeTime(jsondata.getLong("T"));
                 orderUpdate.setTradeID(jsondata.getLong("t"));
-                orderUpdate.setBidsNotional(jsondata.getBigDecimalOrDefault("b", null));
-                orderUpdate.setAsksNotional(jsondata.getBigDecimalOrDefault("a", null));
+                orderUpdate.setBidsNotional(jsondata.getBigDecimalOrDefault("b", new BigDecimal(0)));
+                orderUpdate.setAsksNotional(jsondata.getBigDecimalOrDefault("a", new BigDecimal(0)));
                 orderUpdate.setIsMarkerSide(jsondata.getBooleanOrDefault("m", null));
                 orderUpdate.setIsReduceOnly(jsondata.getBooleanOrDefault("R", null));
                 orderUpdate.setWorkingType(jsondata.getStringOrDefault("wt", null));

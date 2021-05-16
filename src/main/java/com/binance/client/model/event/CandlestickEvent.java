@@ -1,11 +1,13 @@
 package com.binance.client.model.event;
 
 import com.binance.client.constant.BinanceApiConstants;
+import com.binance.client.model.enums.SymbolType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.math.BigDecimal;
 
 public class CandlestickEvent {
+    private SymbolType symbolType;
 
     private String eventType;
 
@@ -197,10 +199,18 @@ public class CandlestickEvent {
         this.ignore = ignore;
     }
 
+    public SymbolType getSymbolType() {
+        return symbolType;
+    }
+
+    public void setSymbolType(SymbolType symbolType) {
+        this.symbolType = symbolType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("eventType", eventType)
-                .append("eventTime", eventTime).append("symbol", symbol).append("startTime", startTime)
+                .append("eventTime", eventTime).append("symbol", symbol).append("symbolType", symbolType).append("startTime", startTime)
                 .append("closeTime", closeTime).append("symbol", symbol).append("interval", interval)
                 .append("firstTradeId", firstTradeId).append("lastTradeId", lastTradeId).append("open", open)
                 .append("close", close).append("high", high).append("low", low).append("volume", volume)

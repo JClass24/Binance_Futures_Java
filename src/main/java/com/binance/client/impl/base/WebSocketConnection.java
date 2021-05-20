@@ -108,10 +108,8 @@ public class WebSocketConnection extends WebSocketListener {
     }
 
     private void onError(String errorMessage, Throwable e) {
-        if (request.errorHandler != null) {
-            BinanceApiException exception = new BinanceApiException(BinanceApiException.SUBSCRIPTION_ERROR, errorMessage, e);
-            request.errorHandler.onError(exception);
-        }
+        BinanceApiException exception = new BinanceApiException(BinanceApiException.SUBSCRIPTION_ERROR, errorMessage, e);
+        request.updateCallback.onError(exception);
         log.error("[Sub][" + this.connectionId + "] " + errorMessage);
     }
 

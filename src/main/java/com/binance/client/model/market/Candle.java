@@ -1,6 +1,5 @@
 package com.binance.client.model.market;
 
-import com.binance.client.model.enums.CandlestickInterval;
 import com.binance.client.model.enums.SymbolType;
 
 import java.util.Objects;
@@ -8,9 +7,9 @@ import java.util.Objects;
 public class Candle {
     private String symbol;
     private SymbolType symbolType;
-    private CandlestickInterval interval;
+    private String interval;
 
-    public Candle(String symbol, SymbolType symbolType, CandlestickInterval interval) {
+    public Candle(String symbol, SymbolType symbolType, String interval) {
         this.symbol = symbol;
         this.symbolType = symbolType;
         this.interval = interval;
@@ -20,27 +19,15 @@ public class Candle {
     }
 
     @Override
-    public String toString() {
-        return "Candle{" +
-                "symbol='" + symbol + '\'' +
-                ", symbolType=" + symbolType +
-                ", interval=" + interval +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Candle candle = (Candle) o;
-        return Objects.equals(symbol, candle.symbol) &&
-                symbolType == candle.symbolType &&
-                interval == candle.interval;
+        return Objects.equals(symbol, candle.symbol) && symbolType == candle.symbolType && Objects.equals(interval, candle.interval);
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(symbol, symbolType, interval);
     }
 
@@ -52,11 +39,11 @@ public class Candle {
         this.symbol = symbol;
     }
 
-    public CandlestickInterval getInterval() {
+    public String getInterval() {
         return interval;
     }
 
-    public void setInterval(CandlestickInterval interval) {
+    public void setInterval(String interval) {
         this.interval = interval;
     }
 

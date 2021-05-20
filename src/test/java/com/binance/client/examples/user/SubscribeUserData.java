@@ -1,9 +1,11 @@
 package com.binance.client.examples.user;
 
 import com.binance.client.examples.constants.PrivateConfig;
+import com.binance.client.exception.BinanceApiException;
 import com.binance.client.impl.base.RestApiInvoker;
+import com.binance.client.model.event.SymbolBookTickerEvent;
 import com.binance.client.websocket.FuturesForUSubscriptionClient;
-import com.binance.client.websocket.SpotSubscriptionClient;
+import com.binance.client.websocket.SubscriptionListener;
 
 public class SubscribeUserData {
 
@@ -26,11 +28,18 @@ public class SubscribeUserData {
         //SpotSubscriptionClient client = SpotSubscriptionClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY);
         //FuturesForCSubscriptionClient client = FuturesForCSubscriptionClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY);
 //
+        client.subscribeAllBookTickerEvent(new SubscriptionListener<SymbolBookTickerEvent>() {
+                                               @Override
+                                               public void onReceive(SymbolBookTickerEvent event) {
+                                                   System.out.println(event);
+                                               }
 
-        client.subscribeUserDataEvent(((event) -> {
-            System.out.println(event);
-        }), null);
+                                               @Override
+                                               public void onError(BinanceApiException exception) {
 
+                                               }
+                                           }
+        );
     }
 
 }

@@ -1,6 +1,9 @@
 package com.binance.client.examples.websocket;
 
+import com.binance.client.exception.BinanceApiException;
+import com.binance.client.model.event.SymbolBookTickerEvent;
 import com.binance.client.websocket.FuturesForUSubscriptionClient;
+import com.binance.client.websocket.SubscriptionListener;
 
 public class SubscribeAllTicker {
 
@@ -8,11 +11,22 @@ public class SubscribeAllTicker {
 
         FuturesForUSubscriptionClient client = FuturesForUSubscriptionClient.create();
 
-        client.subscribeAllTickerEvent(((event) -> {
-            System.out.println(event);
-            client.unsubscribeAll();
-        }), null);
-
+//        client.subscribeAllTickerEvent(((event) -> {
+//            System.out.println(event);
+//            client.unsubscribeAll();
+//        }), null);
+//        client.subscribeAllBookTickerEvent(new SubscriptionListener<SymbolBookTickerEvent>() {
+//                                               @Override
+//                                               public void onReceive(SymbolBookTickerEvent event) {
+//                                                   System.out.println(event);
+//                                               }
+//
+//                                               @Override
+//                                               public void onError(BinanceApiException exception) {
+//
+//                                               }
+//                                           }
+//        );
     }
 
 }

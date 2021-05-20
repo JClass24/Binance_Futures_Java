@@ -8,7 +8,6 @@ import com.binance.client.model.market.BookDepth;
 import com.binance.client.model.market.Candle;
 import com.binance.client.model.market.OrderBookEntry;
 import com.binance.client.model.user.*;
-import com.binance.client.websocket.SubscriptionErrorHandler;
 import com.binance.client.websocket.SubscriptionListener;
 
 import java.math.BigDecimal;
@@ -21,12 +20,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<AggregateTradeEvent> subscribeAggregateTradeEvent(List<String> symbols,
-                                                                              SubscriptionListener<AggregateTradeEvent> subscriptionListener,
-                                                                              SubscriptionErrorHandler errorHandler) {
+                                                                              SubscriptionListener<AggregateTradeEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<AggregateTradeEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<AggregateTradeEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Aggregate Trade for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.aggregateTradeChannel(symbols));
 
@@ -48,12 +46,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<MarkPriceEvent> subscribeMarkPriceEvent(List<String> symbols,
-                                                                    SubscriptionListener<MarkPriceEvent> subscriptionListener,
-                                                                    SubscriptionErrorHandler errorHandler) {
+                                                                    SubscriptionListener<MarkPriceEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<MarkPriceEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<MarkPriceEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Mark Price for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.markPriceChannel(symbols));
 
@@ -71,12 +68,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<CandlestickEvent> subscribeCandlestickEvent(List<Candle> candles,
-                                                                        SubscriptionListener<CandlestickEvent> subscriptionListener,
-                                                                        SubscriptionErrorHandler errorHandler) {
+                                                                        SubscriptionListener<CandlestickEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(candles, "candles")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<CandlestickEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<CandlestickEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Candlestick for " + candles + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.candlestickChannel(candles));
 
@@ -110,12 +106,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<SymbolMiniTickerEvent> subscribeSymbolMiniTickerEvent(List<String> symbols,
-                                                                                  SubscriptionListener<SymbolMiniTickerEvent> subscriptionListener,
-                                                                                  SubscriptionErrorHandler errorHandler) {
+                                                                                  SubscriptionListener<SymbolMiniTickerEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<SymbolMiniTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<SymbolMiniTickerEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Individual Symbol Mini Ticker for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.miniTickerChannel(symbols));
 
@@ -136,11 +131,10 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<List<SymbolMiniTickerEvent>> subscribeAllMiniTickerEvent(
-            SubscriptionListener<List<SymbolMiniTickerEvent>> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+            SubscriptionListener<List<SymbolMiniTickerEvent>> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<List<SymbolMiniTickerEvent>> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<List<SymbolMiniTickerEvent>> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***All Market Mini Tickers";
         request.connectionHandler = (connection) -> connection.send(Channels.miniTickerChannel());
 
@@ -166,12 +160,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<SymbolTickerEvent> subscribeSymbolTickerEvent(List<String> symbols,
-                                                                          SubscriptionListener<SymbolTickerEvent> subscriptionListener,
-                                                                          SubscriptionErrorHandler errorHandler) {
+                                                                          SubscriptionListener<SymbolTickerEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<SymbolTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<SymbolTickerEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Individual Symbol Ticker for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.tickerChannel(symbols));
 
@@ -201,11 +194,10 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<List<SymbolTickerEvent>> subscribeAllTickerEvent(
-            SubscriptionListener<List<SymbolTickerEvent>> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+            SubscriptionListener<List<SymbolTickerEvent>> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<List<SymbolTickerEvent>> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<List<SymbolTickerEvent>> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***All Market Tickers";
         request.connectionHandler = (connection) -> connection.send(Channels.tickerChannel());
 
@@ -241,12 +233,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<SymbolBookTickerEvent> subscribeSymbolBookTickerEvent(List<String> symbols,
-                                                                                  SubscriptionListener<SymbolBookTickerEvent> subscriptionListener,
-                                                                                  SubscriptionErrorHandler errorHandler) {
+                                                                                  SubscriptionListener<SymbolBookTickerEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<SymbolBookTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<SymbolBookTickerEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Individual Symbol Book Ticker for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.bookTickerChannel(symbols));
 
@@ -264,11 +255,10 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<SymbolBookTickerEvent> subscribeAllBookTickerEvent(
-            SubscriptionListener<SymbolBookTickerEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+            SubscriptionListener<SymbolBookTickerEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<SymbolBookTickerEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<SymbolBookTickerEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***All Market Book Tickers***";
         request.connectionHandler = (connection) -> connection.send(Channels.bookTickerChannel());
 
@@ -286,12 +276,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<LiquidationOrderEvent> subscribeSymbolLiquidationOrderEvent(List<String> symbols,
-                                                                                        SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
-                                                                                        SubscriptionErrorHandler errorHandler) {
+                                                                                        SubscriptionListener<LiquidationOrderEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<LiquidationOrderEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<LiquidationOrderEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Individual Symbol Liquidation Order for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.liquidationOrderChannel(symbols));
 
@@ -317,11 +306,10 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<LiquidationOrderEvent> subscribeAllLiquidationOrderEvent(
-            SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+            SubscriptionListener<LiquidationOrderEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<LiquidationOrderEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<LiquidationOrderEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***All Liquidation Orders***";
         request.connectionHandler = (connection) -> connection.send(Channels.liquidationOrderChannel());
 
@@ -347,12 +335,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<OrderBookEvent> subscribeBookDepthEvent(List<BookDepth> bookDepths,
-                                                                    SubscriptionListener<OrderBookEvent> subscriptionListener,
-                                                                    SubscriptionErrorHandler errorHandler) {
+                                                                    SubscriptionListener<OrderBookEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(bookDepths, "bookDepths")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<OrderBookEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<OrderBookEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Partial Book Depth for " + bookDepths + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.bookDepthChannel(bookDepths));
 
@@ -392,12 +379,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<OrderBookEvent> subscribeDiffDepthEvent(List<String> symbols,
-                                                                    SubscriptionListener<OrderBookEvent> subscriptionListener,
-                                                                    SubscriptionErrorHandler errorHandler) {
+                                                                    SubscriptionListener<OrderBookEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotEmpty(symbols, "symbols")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<OrderBookEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<OrderBookEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***Partial Book Depth for " + symbols + "***";
         request.connectionHandler = (connection) -> connection.send(Channels.diffDepthChannel(symbols));
 
@@ -437,12 +423,11 @@ public class WebsocketRequestImpl {
     }
 
     public WebsocketRequest<UserDataUpdateEvent> subscribeUserDataEvent(String listenKey,
-                                                                        SubscriptionListener<UserDataUpdateEvent> subscriptionListener,
-                                                                        SubscriptionErrorHandler errorHandler) {
+                                                                        SubscriptionListener<UserDataUpdateEvent> subscriptionListener) {
         InputChecker.checker()
                 .shouldNotNull(listenKey, "listenKey")
                 .shouldNotNull(subscriptionListener, "listener");
-        WebsocketRequest<UserDataUpdateEvent> request = new WebsocketRequest<>(subscriptionListener, errorHandler);
+        WebsocketRequest<UserDataUpdateEvent> request = new WebsocketRequest<>(subscriptionListener);
         request.name = "***User Data***";
         request.connectionHandler = (connection) -> connection.send(Channels.userDataChannel(listenKey));
 

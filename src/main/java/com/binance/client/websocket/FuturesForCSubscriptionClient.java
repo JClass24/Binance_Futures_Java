@@ -48,33 +48,27 @@ public interface FuturesForCSubscriptionClient extends SubscriptionClient {
      * 最新标记价格 <symbol>@markPrice 或 <symbol>@markPrice@1s Subscribe mark price event. If the mark price is updated,
      * server will send the data to client and onReceive in callback will be called.
      *
-     * @param symbols      The symbol, like "btcusdt".
-     * @param callback     The implementation is required. onReceive will be called if receive server's update.
-     * @param errorHandler The error handler will be called if subscription failed or error happen between client and
-     *                     Binance server.
+     * @param symbols  The symbol, like "btcusdt".
+     * @param callback The implementation is required. onReceive will be called if receive server's update.
      */
     void subscribeMarkPriceEvent(List<String> symbols,
-                                 SubscriptionListener<MarkPriceEvent> callback, SubscriptionErrorHandler errorHandler);
+                                 SubscriptionListener<MarkPriceEvent> callback);
 
     /**
      * 强平订单 Subscribe individual symbol book ticker event. If the symbol book ticker is updated, server will send the
      * data to client and onReceive in callback will be called.
      *
-     * @param symbols       The symbol, like "btcusdt".
-     * @param callback     The implementation is required. onReceive will be called if receive server's update.
-     * @param errorHandler The error handler will be called if subscription failed or error happen between client and
-     *                     Binance server.
+     * @param symbols  The symbol, like "btcusdt".
+     * @param callback The implementation is required. onReceive will be called if receive server's update.
      */
     void subscribeSymbolLiquidationOrderEvent(List<String> symbols,
-                                              SubscriptionListener<LiquidationOrderEvent> callback, SubscriptionErrorHandler errorHandler);
+                                              SubscriptionListener<LiquidationOrderEvent> callback);
 
     /**
      * 全市场强平订单 Subscribe all market book tickers event. If the book tickers are updated, server will send the data to
      * client and onReceive in callback will be called.
      *
-     * @param callback     The implementation is required. onReceive will be called if receive server's update.
-     * @param errorHandler The error handler will be called if subscription failed or error happen between client and
-     *                     Binance server.
+     * @param callback The implementation is required. onReceive will be called if receive server's update.
      */
-    void subscribeAllLiquidationOrderEvent(SubscriptionListener<LiquidationOrderEvent> callback, SubscriptionErrorHandler errorHandler);
+    void subscribeAllLiquidationOrderEvent(SubscriptionListener<LiquidationOrderEvent> callback);
 }

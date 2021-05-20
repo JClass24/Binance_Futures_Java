@@ -26,8 +26,7 @@ public enum CandlestickInterval {
         this.code = code;
     }
 
-    @Override
-    public String toString() {
+    public String code() {
         return code;
     }
 }

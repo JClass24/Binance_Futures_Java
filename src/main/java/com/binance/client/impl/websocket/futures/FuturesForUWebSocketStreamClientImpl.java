@@ -6,7 +6,6 @@ import com.binance.client.model.event.LiquidationOrderEvent;
 import com.binance.client.model.event.MarkPriceEvent;
 import com.binance.client.rest.FuturesForUSyncRequestClient;
 import com.binance.client.websocket.FuturesForUSubscriptionClient;
-import com.binance.client.websocket.SubscriptionErrorHandler;
 import com.binance.client.websocket.SubscriptionListener;
 import com.binance.client.websocket.SubscriptionOptions;
 
@@ -29,24 +28,21 @@ public class FuturesForUWebSocketStreamClientImpl extends WebSocketStreamClientI
 
     @Override
     public void subscribeMarkPriceEvent(List<String> symbols,
-                                        SubscriptionListener<MarkPriceEvent> subscriptionListener,
-                                        SubscriptionErrorHandler errorHandler) {
+                                        SubscriptionListener<MarkPriceEvent> subscriptionListener) {
         createConnection(
-                requestImpl.subscribeMarkPriceEvent(symbols, subscriptionListener, errorHandler));
+                requestImpl.subscribeMarkPriceEvent(symbols, subscriptionListener));
     }
 
     @Override
     public void subscribeSymbolLiquidationOrderEvent(List<String> symbols,
-                                                     SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
-                                                     SubscriptionErrorHandler errorHandler) {
+                                                     SubscriptionListener<LiquidationOrderEvent> subscriptionListener) {
         createConnection(
-                requestImpl.subscribeSymbolLiquidationOrderEvent(symbols, subscriptionListener, errorHandler));
+                requestImpl.subscribeSymbolLiquidationOrderEvent(symbols, subscriptionListener));
     }
 
     @Override
-    public void subscribeAllLiquidationOrderEvent(SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
-                                                  SubscriptionErrorHandler errorHandler) {
+    public void subscribeAllLiquidationOrderEvent(SubscriptionListener<LiquidationOrderEvent> subscriptionListener) {
         createConnection(
-                requestImpl.subscribeAllLiquidationOrderEvent(subscriptionListener, errorHandler));
+                requestImpl.subscribeAllLiquidationOrderEvent(subscriptionListener));
     }
 }

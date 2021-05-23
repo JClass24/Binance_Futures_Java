@@ -60,7 +60,7 @@ public class JsonWrapperArray {
 
     public long getLongAt(int index) {
         try {
-            return (Long) getObjectAt(index);
+            return new Long(getObjectAt(index));
         } catch (Exception e) {
             throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR,
                     "[Json] Cannot get long at index " + index + " in array: " + e.getMessage());

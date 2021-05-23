@@ -55,7 +55,7 @@ public interface SyncRequestClient {
      *
      * @return Kline/candlestick bars for a symbol.
      */
-    List<Candlestick> getCandlestick(String symbol, CandlestickInterval interval, Long startTime, Long endTime, Integer limit);
+    List<Candlestick> getCandlestick(String symbol, String interval, Long startTime, Long endTime, Integer limit);
 
     /**
      * Get 24 hour rolling window price change statistics.

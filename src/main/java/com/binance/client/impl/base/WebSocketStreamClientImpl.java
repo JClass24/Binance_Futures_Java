@@ -3,7 +3,7 @@ package com.binance.client.impl.base;
 import com.binance.client.base.SubscriptionClient;
 import com.binance.client.model.event.*;
 import com.binance.client.model.market.BookDepth;
-import com.binance.client.model.market.Candle;
+import com.binance.client.model.market.CandleConfig;
 import com.binance.client.model.user.UserDataUpdateEvent;
 import com.binance.client.websocket.SubscriptionListener;
 import com.binance.client.websocket.SubscriptionOptions;
@@ -60,10 +60,10 @@ public abstract class WebSocketStreamClientImpl implements SubscriptionClient {
     }
 
     @Override
-    public void subscribeCandlestickEvent(List<Candle> candles,
+    public void subscribeCandlestickEvent(List<CandleConfig> CandleConfigs,
                                           SubscriptionListener<CandlestickEvent> subscriptionListener) {
         createConnection(
-                requestImpl.subscribeCandlestickEvent(candles, subscriptionListener));
+                requestImpl.subscribeCandlestickEvent(CandleConfigs, subscriptionListener));
     }
 
     @Override

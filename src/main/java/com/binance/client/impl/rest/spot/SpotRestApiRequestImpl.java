@@ -90,7 +90,7 @@ public class SpotRestApiRequestImpl extends BaseRestApiRequestImpl {
         return getAggregateTrades(symbol, fromId, startTime, endTime, limit, "/api/v3/aggTrades");
     }
 
-    public RestApiRequest<List<Candlestick>> getCandlestick(String symbol, CandlestickInterval interval, Long startTime,
+    public RestApiRequest<List<Candlestick>> getCandlestick(String symbol, String interval, Long startTime,
                                                             Long endTime, Integer limit) {
         return getCandlestick(symbol, interval, startTime, endTime, limit, "/api/v3/klines");
     }

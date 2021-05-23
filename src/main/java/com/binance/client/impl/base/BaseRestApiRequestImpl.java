@@ -142,7 +142,7 @@ public class BaseRestApiRequestImpl extends RestApiRequestImpl {
         return request;
     }
 
-    public RestApiRequest<List<Candlestick>> getCandlestick(String symbol, CandlestickInterval interval, Long startTime,
+    public RestApiRequest<List<Candlestick>> getCandlestick(String symbol, String interval, Long startTime,
                                                             Long endTime, Integer limit, String path) {
         RestApiRequest<List<Candlestick>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
@@ -166,7 +166,7 @@ public class BaseRestApiRequestImpl extends RestApiRequestImpl {
                 element.setVolume(item.getBigDecimalAt(5));
                 element.setCloseTime(item.getLongAt(6));
                 element.setQuoteAssetVolume(item.getBigDecimalAt(7));
-                element.setNumTrades(item.getIntegerAt(8));
+                element.setNumTrades(item.getLongAt(8));
                 element.setTakerBuyBaseAssetVolume(item.getBigDecimalAt(9));
                 element.setTakerBuyQuoteAssetVolume(item.getBigDecimalAt(10));
                 element.setIgnore(item.getBigDecimalAt(11));

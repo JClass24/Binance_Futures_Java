@@ -45,7 +45,7 @@ public class FuturesForUSyncRequestImpl implements FuturesForUSyncRequestClient 
     }
 
     @Override
-    public List<Candlestick> getCandlestick(String symbol, CandlestickInterval interval, Long startTime,
+    public List<Candlestick> getCandlestick(String symbol, String interval, Long startTime,
                                             Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getCandlestick(symbol, interval, startTime, endTime, limit));
     }

@@ -2,7 +2,7 @@ package com.binance.client.base;
 
 import com.binance.client.model.event.*;
 import com.binance.client.model.market.BookDepth;
-import com.binance.client.model.market.Candle;
+import com.binance.client.model.market.CandleConfig;
 import com.binance.client.model.user.UserDataUpdateEvent;
 import com.binance.client.websocket.SubscriptionListener;
 
@@ -36,10 +36,10 @@ public interface SubscriptionClient {
      * Subscribe candlestick event. If the candlestick is updated, server will send the data to client and onReceive in
      * callback will be called.
      *
-     * @param candles  The candles.
+     * @param CandleConfigs  The candles.
      * @param callback The implementation is required. onReceive will be called if receive server's update.
      */
-    void subscribeCandlestickEvent(List<Candle> candles,
+    void subscribeCandlestickEvent(List<CandleConfig> CandleConfigs,
                                    SubscriptionListener<CandlestickEvent> callback);
 
     /**

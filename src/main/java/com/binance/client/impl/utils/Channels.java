@@ -3,7 +3,7 @@ package com.binance.client.impl.utils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.binance.client.model.market.BookDepth;
-import com.binance.client.model.market.Candle;
+import com.binance.client.model.market.CandleConfig;
 
 import java.util.List;
 
@@ -32,10 +32,10 @@ public abstract class Channels {
         return json.toJSONString();
     }
 
-    public static String candlestickChannel(List<Candle> candles) {
+    public static String candlestickChannel(List<CandleConfig> CandleConfigs) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        candles.forEach(candle -> params.add(candle.getSymbol().toLowerCase() + "@kline_" + candle.getInterval()));
+        CandleConfigs.forEach(candle -> params.add(candle.getSymbol().toLowerCase() + "@kline_" + candle.getInterval()));
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");

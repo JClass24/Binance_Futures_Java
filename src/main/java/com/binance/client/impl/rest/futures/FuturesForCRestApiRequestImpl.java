@@ -85,7 +85,7 @@ public class FuturesForCRestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param limit
      * @return
      */
-    public RestApiRequest<List<Candlestick>> getCandlestick(String symbol, CandlestickInterval interval, Long startTime,
+    public RestApiRequest<List<Candlestick>> getCandlestick(String symbol, String interval, Long startTime,
                                                             Long endTime, Integer limit) {
         return getCandlestick(symbol, interval, startTime, endTime, limit, "/dapi/v1/klines");
     }

@@ -5,7 +5,8 @@ import com.binance.client.impl.utils.JsonWrapper;
 import com.binance.client.impl.utils.JsonWrapperArray;
 import com.binance.client.model.event.*;
 import com.binance.client.model.market.BookDepth;
-import com.binance.client.model.market.Candle;
+import com.binance.client.model.market.CandleConfig;
+import com.binance.client.model.market.Candlestick;
 import com.binance.client.model.market.OrderBookEntry;
 import com.binance.client.model.user.*;
 import com.binance.client.websocket.SubscriptionListener;
@@ -67,39 +68,43 @@ public class WebsocketRequestImpl {
         return request;
     }
 
-    public WebsocketRequest<CandlestickEvent> subscribeCandlestickEvent(List<Candle> candles,
+    public WebsocketRequest<CandlestickEvent> subscribeCandlestickEvent(List<CandleConfig> CandleConfigs,
                                                                         SubscriptionListener<CandlestickEvent> subscriptionListener) {
         InputChecker.checker()
-                .shouldNotEmpty(candles, "candles")
+                .shouldNotEmpty(CandleConfigs, "candles")
                 .shouldNotNull(subscriptionListener, "listener");
         WebsocketRequest<CandlestickEvent> request = new WebsocketRequest<>(subscriptionListener);
-        request.name = "***Candlestick for " + candles + "***";
-        request.connectionHandler = (connection) -> connection.send(Channels.candlestickChannel(candles));
+        request.name = "***Candlestick for " + CandleConfigs + "***";
+        request.connectionHandler = (connection) -> connection.send(Channels.candlestickChannel(CandleConfigs));
 
         request.jsonParser = (jsonWrapper) -> {
             CandlestickEvent result = new CandlestickEvent();
-            result.setSymbolType(candles.get(0).getSymbolType());
+            CandleConfig config = new CandleConfig();
+            config.setSymbol(jsonWrapper.getString("s"));
+            config.setSymbolType(CandleConfigs.get(0).getSymbolType());
             result.setEventType(jsonWrapper.getString("e"));
             result.setEventTime(jsonWrapper.getLong("E"));
-            result.setSymbol(jsonWrapper.getString("s"));
             JsonWrapper jsondata = jsonWrapper.getJsonObject("k");
-            result.setStartTime(jsondata.getLong("t"));
-            result.setCloseTime(jsondata.getLong("T"));
-            result.setSymbol(jsondata.getString("s"));
-            result.setInterval(jsondata.getString("i"));
+            config.setInterval(jsondata.getString("i"));
+
+            Candlestick candlestick = new Candlestick();
+            candlestick.setOpenTime(jsondata.getLong("t"));
+            candlestick.setOpen(jsondata.getBigDecimal("o"));
+            candlestick.setHigh(jsondata.getBigDecimal("h"));
+            candlestick.setLow(jsondata.getBigDecimal("l"));
+            candlestick.setClose(jsondata.getBigDecimal("c"));
+            candlestick.setVolume(jsondata.getBigDecimal("v"));
+            candlestick.setCloseTime(jsondata.getLong("T"));
+            candlestick.setQuoteAssetVolume(jsondata.getBigDecimal("q"));
+            candlestick.setNumTrades(jsondata.getLong("n"));
+            candlestick.setTakerBuyBaseAssetVolume(jsondata.getBigDecimal("V"));
+            candlestick.setTakerBuyQuoteAssetVolume(jsondata.getBigDecimal("Q"));
             result.setFirstTradeId(jsondata.getLong("f"));
             result.setLastTradeId(jsondata.getLong("L"));
-            result.setOpen(jsondata.getBigDecimal("o"));
-            result.setClose(jsondata.getBigDecimal("c"));
-            result.setHigh(jsondata.getBigDecimal("h"));
-            result.setLow(jsondata.getBigDecimal("l"));
-            result.setVolume(jsondata.getBigDecimal("v"));
-            result.setNumTrades(jsondata.getLong("n"));
             result.setIsClosed(jsondata.getBoolean("x"));
-            result.setQuoteAssetVolume(jsondata.getBigDecimal("q"));
-            result.setTakerBuyBaseAssetVolume(jsondata.getBigDecimal("V"));
-            result.setTakerBuyQuoteAssetVolume(jsondata.getBigDecimal("Q"));
             result.setIgnore(jsondata.getLong("B"));
+            result.setCandleConfig(config);
+            result.setCandlestick(candlestick);
             return result;
         };
         return request;

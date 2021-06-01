@@ -184,9 +184,9 @@ public class FuturesForURestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param newOrderRespType
      * @return
      */
-    public RestApiRequest<FuturesOrder> postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-                                                  TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-                                                  String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType) {
+    public RestApiRequest<Order> postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
+                                           TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+                                           String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType) {
         return postOrder(symbol, side, positionSide, orderType, timeInForce, quantity, price, reduceOnly, newClientOrderId, stopPrice, workingType, newOrderRespType, "/fapi/v1/order");
     }
 
@@ -255,7 +255,7 @@ public class FuturesForURestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param origClientOrderId
      * @return
      */
-    public RestApiRequest<FuturesOrder> cancelOrder(String symbol, Long orderId, String origClientOrderId) {
+    public RestApiRequest<Order> cancelOrder(String symbol, Long orderId, String origClientOrderId) {
         return cancelOrder(symbol, orderId, origClientOrderId, "/fapi/v1/order");
     }
 
@@ -289,7 +289,7 @@ public class FuturesForURestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param origClientOrderId
      * @return
      */
-    public RestApiRequest<FuturesOrder> getOrder(String symbol, Long orderId, String origClientOrderId) {
+    public RestApiRequest<Order> getOrder(String symbol, Long orderId, String origClientOrderId) {
         return getOrder(symbol, orderId, origClientOrderId, "/fapi/v1/order");
     }
 
@@ -299,7 +299,7 @@ public class FuturesForURestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param symbol
      * @return
      */
-    public RestApiRequest<List<FuturesOrder>> getOpenOrders(String symbol) {
+    public RestApiRequest<List<Order>> getOpenOrders(String symbol) {
         return getOpenOrders(symbol, "/fapi/v1/openOrders");
     }
 
@@ -313,7 +313,7 @@ public class FuturesForURestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param limit
      * @return
      */
-    public RestApiRequest<List<FuturesOrder>> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
+    public RestApiRequest<List<Order>> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
         return getAllOrders(symbol, orderId, startTime, endTime, limit, "/fapi/v1/allOrders");
     }
 

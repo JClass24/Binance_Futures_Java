@@ -5,7 +5,10 @@ import com.binance.client.impl.base.BaseRestApiRequestImpl;
 import com.binance.client.impl.base.RestApiRequest;
 import com.binance.client.impl.utils.JsonWrapperArray;
 import com.binance.client.impl.utils.UrlParamsBuilder;
-import com.binance.client.model.enums.*;
+import com.binance.client.model.enums.NewOrderRespType;
+import com.binance.client.model.enums.OrderSide;
+import com.binance.client.model.enums.OrderType;
+import com.binance.client.model.enums.TimeInForce;
 import com.binance.client.model.market.*;
 import com.binance.client.model.trade.*;
 
@@ -18,10 +21,10 @@ public class SpotRestApiRequestImpl extends BaseRestApiRequestImpl {
         super(apiKey, secretKey, options);
     }
 
-    public RestApiRequest<SpotOrder> postOrder(String symbol, OrderSide side, OrderType orderType,
-                                               TimeInForce timeInForce, String quantity, String quoteOrderQty, String price,
-                                               String newClientOrderId, String stopPrice, String icebergQty, NewOrderRespType newOrderRespType) {
-        RestApiRequest<SpotOrder> request = new RestApiRequest<>();
+    public RestApiRequest<Order> postOrder(String symbol, OrderSide side, OrderType orderType,
+                                           TimeInForce timeInForce, String quantity, String quoteOrderQty, String price,
+                                           String newClientOrderId, String stopPrice, String icebergQty, NewOrderRespType newOrderRespType) {
+        RestApiRequest<Order> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
                 .putToUrl("side", side)
@@ -38,16 +41,16 @@ public class SpotRestApiRequestImpl extends BaseRestApiRequestImpl {
         request.request = createRequestByPostWithSignature("/api/v3/order", builder);
 
         request.jsonParser = (jsonWrapper -> {
-            SpotOrder result = new SpotOrder();
+            Order result = new Order();
             result.setSymbol(jsonWrapper.getString("symbol"));
             result.setOrderId(jsonWrapper.getLong("orderId"));
             result.setOrderListId(jsonWrapper.getLong("orderListId"));
             result.setClientOrderId(jsonWrapper.getString("clientOrderId"));
-            result.setTransactTime(jsonWrapper.getLong("transactTime"));
+            result.setUpdateTime(jsonWrapper.getLong("transactTime"));
             result.setPrice(jsonWrapper.getBigDecimal("price"));
             result.setOrigQty(jsonWrapper.getBigDecimal("origQty"));
             result.setExecutedQty(jsonWrapper.getBigDecimal("executedQty"));
-            result.setCummulativeQuoteQty(jsonWrapper.getBigDecimal("cummulativeQuoteQty"));
+            result.setCumQuote(jsonWrapper.getBigDecimal("cummulativeQuoteQty"));
             result.setStatus(jsonWrapper.getString("status"));
             result.setTimeInForce(jsonWrapper.getString("timeInForce"));
             result.setType(jsonWrapper.getString("type"));
@@ -107,15 +110,15 @@ public class SpotRestApiRequestImpl extends BaseRestApiRequestImpl {
         return getSymbolOrderBookTicker(symbol, "/api/v3/ticker/bookTicker");
     }
 
-    public RestApiRequest<FuturesOrder> cancelOrder(String symbol, Long orderId, String origClientOrderId) {
+    public RestApiRequest<Order> cancelOrder(String symbol, Long orderId, String origClientOrderId) {
         return cancelOrder(symbol, orderId, origClientOrderId, "/api/v3/order");
     }
 
-    public RestApiRequest<FuturesOrder> getOrder(String symbol, Long orderId, String origClientOrderId) {
+    public RestApiRequest<Order> getOrder(String symbol, Long orderId, String origClientOrderId) {
         return getOrder(symbol, orderId, origClientOrderId, "/api/v3/order");
     }
 
-    public RestApiRequest<List<FuturesOrder>> getOpenOrders(String symbol) {
+    public RestApiRequest<List<Order>> getOpenOrders(String symbol) {
         return getOpenOrders(symbol, "/api/v3/openOrders");
     }
 
@@ -125,7 +128,7 @@ public class SpotRestApiRequestImpl extends BaseRestApiRequestImpl {
      * @param symbol
      * @return
      */
-    public RestApiRequest<List<FuturesOrder>> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
+    public RestApiRequest<List<Order>> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
         return getAllOrders(symbol, orderId, startTime, endTime, limit, "/api/v3/allOrders");
     }
 

@@ -42,9 +42,9 @@ public interface FuturesSyncRequestClient extends SyncRequestClient {
      *
      * @return Order.
      */
-    FuturesOrder postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-                           TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-                           String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType);
+    Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
+                    TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+                    String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType);
 
     /**
      * Place new orders

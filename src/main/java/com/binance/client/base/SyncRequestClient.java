@@ -1,8 +1,7 @@
 package com.binance.client.base;
 
-import com.binance.client.model.enums.CandlestickInterval;
 import com.binance.client.model.market.*;
-import com.binance.client.model.trade.FuturesOrder;
+import com.binance.client.model.trade.Order;
 import com.binance.client.model.trade.MyTrade;
 
 import java.util.List;
@@ -83,28 +82,28 @@ public interface SyncRequestClient {
      *
      * @return Order.
      */
-    FuturesOrder cancelOrder(String symbol, Long orderId, String origClientOrderId);
+    Order cancelOrder(String symbol, Long orderId, String origClientOrderId);
 
     /**
      * Check an order's status.
      *
      * @return Order status.
      */
-    FuturesOrder getOrder(String symbol, Long orderId, String origClientOrderId);
+    Order getOrder(String symbol, Long orderId, String origClientOrderId);
 
     /**
      * Get all open orders on a symbol. Careful when accessing this with no symbol.
      *
      * @return Open orders.
      */
-    List<FuturesOrder> getOpenOrders(String symbol);
+    List<Order> getOpenOrders(String symbol);
 
     /**
      * Get all account orders; active, canceled, or filled.
      *
      * @return All orders.
      */
-    List<FuturesOrder> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
+    List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit);
 
     /**
      * Get trades for a specific account and symbol.

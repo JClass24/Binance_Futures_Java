@@ -4,8 +4,11 @@ import com.binance.client.constant.BinanceApiConstants;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class FuturesOrder {
+public class Order {
+    //现货：OCO订单的ID，不然就是-1
+    private Long orderListId;
 
     private String clientOrderId;
 
@@ -40,6 +43,9 @@ public class FuturesOrder {
     private String workingType;
 
     private String pair;
+
+    //现货：订单中交易的信息
+    private List<Fill> fills;
 
     public String getClientOrderId() {
         return clientOrderId;
@@ -177,6 +183,22 @@ public class FuturesOrder {
         this.pair = pair;
     }
 
+    public Long getOrderListId() {
+        return orderListId;
+    }
+
+    public void setOrderListId(Long orderListId) {
+        this.orderListId = orderListId;
+    }
+
+    public List<Fill> getFills() {
+        return fills;
+    }
+
+    public void setFills(List<Fill> fills) {
+        this.fills = fills;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
@@ -184,6 +206,6 @@ public class FuturesOrder {
                 .append("orderId", orderId).append("origQty", origQty).append("price", price)
                 .append("reduceOnly", reduceOnly).append("side", side).append("positionSide", positionSide).append("status", status)
                 .append("stopPrice", stopPrice).append("symbol", symbol).append("timeInForce", timeInForce)
-                .append("type", type).append("updateTime", updateTime).append("workingType", workingType).append("pair", pair).toString();
+                .append("type", type).append("updateTime", updateTime).append("workingType", workingType).append("pair", pair).append("orderListId", orderListId).append("fills", fills).toString();
     }
 }

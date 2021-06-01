@@ -6,8 +6,8 @@ import com.binance.client.model.enums.NewOrderRespType;
 import com.binance.client.model.enums.OrderSide;
 import com.binance.client.model.enums.OrderType;
 import com.binance.client.model.enums.TimeInForce;
+import com.binance.client.model.trade.Order;
 import com.binance.client.model.trade.SpotAccountInformation;
-import com.binance.client.model.trade.SpotOrder;
 
 /**
  * Synchronous request interface, invoking Binance RestAPI via synchronous method.<br> All methods in this interface
@@ -37,9 +37,9 @@ public interface SpotSyncRequestClient extends SyncRequestClient {
         return BinanceApiInternalFactory.getInstance().createSpotSyncRequestClient(apiKey, secretKey);
     }
 
-    SpotOrder postOrder(String symbol, OrderSide side, OrderType orderType,
-                        TimeInForce timeInForce, String quantity, String quoteOrderQty, String price,
-                        String newClientOrderId, String stopPrice, String icebergQty, NewOrderRespType newOrderRespType);
+    Order postOrder(String symbol, OrderSide side, OrderType orderType,
+                    TimeInForce timeInForce, String quantity, String quoteOrderQty, String price,
+                    String newClientOrderId, String stopPrice, String icebergQty, NewOrderRespType newOrderRespType);
 
     /**
      * Get current account information.

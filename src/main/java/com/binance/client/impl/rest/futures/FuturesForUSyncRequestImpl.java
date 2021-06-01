@@ -86,16 +86,16 @@ public class FuturesForUSyncRequestImpl implements FuturesForUSyncRequestClient 
     }
 
     @Override
-    public FuturesOrder postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-                                  TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-                                  String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType) {
+    public Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
+                           TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+                           String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType) {
         return RestApiInvoker.callSync(requestImpl.postOrder(symbol, side, positionSide, orderType,
                 timeInForce, quantity, price, reduceOnly,
                 newClientOrderId, stopPrice, workingType, newOrderRespType));
     }
 
     @Override
-    public FuturesOrder cancelOrder(String symbol, Long orderId, String origClientOrderId) {
+    public Order cancelOrder(String symbol, Long orderId, String origClientOrderId) {
         return RestApiInvoker.callSync(requestImpl.cancelOrder(symbol, orderId, origClientOrderId));
     }
 
@@ -136,17 +136,17 @@ public class FuturesForUSyncRequestImpl implements FuturesForUSyncRequestClient 
     }
 
     @Override
-    public FuturesOrder getOrder(String symbol, Long orderId, String origClientOrderId) {
+    public Order getOrder(String symbol, Long orderId, String origClientOrderId) {
         return RestApiInvoker.callSync(requestImpl.getOrder(symbol, orderId, origClientOrderId));
     }
 
     @Override
-    public List<FuturesOrder> getOpenOrders(String symbol) {
+    public List<Order> getOpenOrders(String symbol) {
         return RestApiInvoker.callSync(requestImpl.getOpenOrders(symbol));
     }
 
     @Override
-    public List<FuturesOrder> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
+    public List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getAllOrders(symbol, orderId, startTime, endTime, limit));
     }
 

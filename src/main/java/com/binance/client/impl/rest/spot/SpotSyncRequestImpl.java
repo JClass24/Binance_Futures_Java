@@ -3,10 +3,9 @@ package com.binance.client.impl.rest.spot;
 import com.binance.client.impl.base.RestApiInvoker;
 import com.binance.client.model.enums.*;
 import com.binance.client.model.market.*;
-import com.binance.client.model.trade.FuturesOrder;
+import com.binance.client.model.trade.Order;
 import com.binance.client.model.trade.MyTrade;
 import com.binance.client.model.trade.SpotAccountInformation;
-import com.binance.client.model.trade.SpotOrder;
 import com.binance.client.rest.SpotSyncRequestClient;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class SpotSyncRequestImpl implements SpotSyncRequestClient {
     }
 
     @Override
-    public SpotOrder postOrder(String symbol, OrderSide side, OrderType orderType,
+    public Order postOrder(String symbol, OrderSide side, OrderType orderType,
                                TimeInForce timeInForce, String quantity, String quoteOrderQty, String price,
                                String newClientOrderId, String stopPrice, String icebergQty, NewOrderRespType newOrderRespType) {
         return RestApiInvoker.callSync(requestImpl.postOrder(symbol, side, orderType,
@@ -76,22 +75,22 @@ public class SpotSyncRequestImpl implements SpotSyncRequestClient {
     }
 
     @Override
-    public FuturesOrder cancelOrder(String symbol, Long orderId, String origClientOrderId) {
+    public Order cancelOrder(String symbol, Long orderId, String origClientOrderId) {
         return RestApiInvoker.callSync(requestImpl.cancelOrder(symbol, orderId, origClientOrderId));
     }
 
     @Override
-    public FuturesOrder getOrder(String symbol, Long orderId, String origClientOrderId) {
+    public Order getOrder(String symbol, Long orderId, String origClientOrderId) {
         return RestApiInvoker.callSync(requestImpl.getOrder(symbol, orderId, origClientOrderId));
     }
 
     @Override
-    public List<FuturesOrder> getOpenOrders(String symbol) {
+    public List<Order> getOpenOrders(String symbol) {
         return RestApiInvoker.callSync(requestImpl.getOpenOrders(symbol));
     }
 
     @Override
-    public List<FuturesOrder> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
+    public List<Order> getAllOrders(String symbol, Long orderId, Long startTime, Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getAllOrders(symbol, orderId, startTime, endTime, limit));
     }
 

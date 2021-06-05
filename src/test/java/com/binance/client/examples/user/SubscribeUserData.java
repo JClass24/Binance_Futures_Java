@@ -38,6 +38,11 @@ public class SubscribeUserData {
                                                public void onError(BinanceApiException exception) {
 
                                                }
+
+                                               @Override
+                                               public void notice(String msg) {
+
+                                               }
                                            }
         );
     }

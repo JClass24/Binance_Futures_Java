@@ -18,4 +18,6 @@ public interface SubscriptionListener<T> {
     void onReceive(T data);
 
     void onError(BinanceApiException exception);
+
+    void notice(String msg);
 }

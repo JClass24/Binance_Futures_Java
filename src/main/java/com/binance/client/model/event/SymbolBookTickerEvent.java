@@ -11,6 +11,8 @@ public class SymbolBookTickerEvent {
 
     private String symbol;
 
+    private String symbolType;
+
     private BigDecimal bestBidPrice;
 
     private BigDecimal bestBidQty;
@@ -67,10 +69,18 @@ public class SymbolBookTickerEvent {
         this.bestAskQty = bestAskQty;
     }
 
+    public String getSymbolType() {
+        return symbolType;
+    }
+
+    public void setSymbolType(String symbolType) {
+        this.symbolType = symbolType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("orderBookUpdateId", orderBookUpdateId).append("symbol", symbol)
+                .append("orderBookUpdateId", orderBookUpdateId).append("symbol", symbol).append("symbolType", symbolType)
                 .append("bestBidPrice", bestBidPrice).append("bestBidQty", bestBidQty)
                 .append("bestAskPrice", bestAskPrice).append("bestAskQty", bestAskQty).toString();
     }

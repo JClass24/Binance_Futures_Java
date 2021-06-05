@@ -50,11 +50,13 @@ public class WebSocketConnection extends WebSocketListener {
         }
         state = ConnectionState.CONNECTING;
         log.info("[Sub][" + this.connectionId + "] Connecting...");
+        request.updateCallback.notice("[Sub][" + this.connectionId + "] Connecting...");
         webSocket = RestApiInvoker.createWebSocket(okhttpRequest, this);
     }
 
     void reConnect(int delayInSecond) {
         log.warn("[Sub][" + this.connectionId + "] Reconnecting after " + delayInSecond + " seconds later");
+        request.updateCallback.notice("[Sub][" + this.connectionId + "] Reconnecting after " + delayInSecond + " seconds later");
         if (webSocket != null) {
             webSocket.cancel();
             webSocket = null;

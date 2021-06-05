@@ -20,6 +20,11 @@ public class SubscribeAllBookTicker {
                                                public void onError(BinanceApiException exception) {
 
                                                }
+
+                                               @Override
+                                               public void notice(String msg) {
+
+                                               }
                                            }
         );
     }

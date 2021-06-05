@@ -21,6 +21,11 @@ public class SubscribeAllLiquidationOrder {
                                                      public void onError(BinanceApiException exception) {
 
                                                      }
+
+                                                     @Override
+                                                     public void notice(String msg) {
+
+                                                     }
                                                  }
         );
     }

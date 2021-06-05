@@ -1,6 +1,7 @@
 package com.binance.client.model.event;
 
 import com.binance.client.constant.BinanceApiConstants;
+import com.binance.client.model.enums.SymbolType;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.math.BigDecimal;
@@ -12,6 +13,8 @@ public class SymbolMiniTickerEvent {
     private Long eventTime;
 
     private String symbol;
+
+    private SymbolType symbolType;
 
     private BigDecimal open;
 
@@ -97,10 +100,18 @@ public class SymbolMiniTickerEvent {
         this.totalTradedQuoteAssetVolume = totalTradedQuoteAssetVolume;
     }
 
+    public SymbolType getSymbolType() {
+        return symbolType;
+    }
+
+    public void setSymbolType(SymbolType symbolType) {
+        this.symbolType = symbolType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("eventType", eventType)
-                .append("eventTime", eventTime).append("symbol", symbol).append("open", open).append("close", close)
+                .append("eventTime", eventTime).append("symbol", symbol).append("symbolType", symbolType).append("open", open).append("close", close)
                 .append("high", high).append("low", low)
                 .append("totalTradedBaseAssetVolume", totalTradedBaseAssetVolume)
                 .append("totalTradedQuoteAssetVolume", totalTradedQuoteAssetVolume).toString();
